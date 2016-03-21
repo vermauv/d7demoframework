@@ -1,0 +1,22 @@
+/**
+ * @file
+ * Styles for the Demo Framework navbar icon.
+ */
+
+.navbar-icon-demo-framework:before {
+  background-image: url("../icons/787878/brick.svg");
+}
+
+.no-svg .navbar-icon-demo-framework:before {
+  background-image: url("../icons/787878/brick.png");
+}
+
+.navbar-icon-demo-framework:active:before,
+.navbar-icon-demo-framework.navbar-active:before {
+  background-image: url("../icons/000000/brick.svg");
+}
+
+.no-svg .navbar-icon-demo-framework:active:before,
+.no-svg .navbar-icon-demo-framework.navbar-active:before {
+  background-image: url("../icons/000000/brick.png");
+}

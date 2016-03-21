@@ -1,0 +1,55 @@
+/**
+ * @file
+ * Styles for the Demo Framework admin page.
+ *
+ * The display and layout of DF Admin pages assume Ember 2.x is the currently
+ * enabled admin theme.
+ */
+
+/* Basic grid for scenarios */
+.dfs-item {
+  max-width: 320px;
+  min-height: 440px;
+  float: left;
+  margin-left: 2em;
+  margin-bottom:1em;
+}
+.dfs-screenshot img {
+  margin:0;
+}
+.dfs-description {
+  min-height:65px;
+  padding:15px;
+  background: #e5e5e5;
+}
+.dfs-link-wrapper {
+  background: #e5e5e5;
+  display: block;
+  padding:.5em;
+}
+h4.dfs-name {
+  font-size: 1.4em;
+  display:block;
+  background: #e5e5e5;
+  padding:15px;
+  margin:0;
+}
+.dfs-link.button {
+  background: #2fa6e5;
+  text-shadow: 0 1px 0 #0e3144;
+  min-width:90px;
+  padding-left:15px;
+}
+.dfs-link.button a {
+  color:#fff;
+  font-weight:normal;
+}
+.dfs-link.button:hover {
+  color: white;
+  background: #58b7ea;
+  text-shadow: 0 1px 0 #1a3646;
+  text-decoration: none;
+}
+.dfs-link.button a:hover {
+ text-decoration: none;
+}

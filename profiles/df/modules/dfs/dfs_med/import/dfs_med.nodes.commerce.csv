@@ -1,0 +1,20 @@
+Title,Brand,SKU,Image,Featured,Bestseller,Price,Persona
+Season 1,The Beverly Hillbillies,BEV-1,Getting-Settled.jpg,0,1,3.99,Comedy
+Season 2,The Beverly Hillbillies,BEV-2,Hair-Raising-Holiday.jpg,0,0,3.99,Comedy
+Season 4,The Beverly Hillbillies,BEV-4,The-Private-Eye.jpg,0,0,3.99,Comedy
+Season 5,The Beverly Hillbillies,BEV-5,The-Soup-Contest.jpg,0,0,3.99,Comedy
+Season 6,The Beverly Hillbillies,BEV-6,The-Clampetts-In-London.jpg,0,0,3.99,Comedy
+Season 3,The Beverly Hillbillies,BEV-3,Clampett-City.jpg,0,0,3.99,Comedy
+Season 7,The Beverly Hillbillies,BEV-7,Something-For-The-Queen.jpg,0,0,3.99,Comedy
+Season 8,The Beverly Hillbillies,BEV-8,Jed-Inherits-A-Castle.jpg,0,0,3.99,Comedy
+Season 2,Bonanza,BON-2,Bonanza-bw.jpg,0,1,5.99,Action-Adventure
+Season 6,The Andy Griffith Show,AND-6,The-Andy-Griffith-Show-bw.jpg,1,1,5.99,Family
+Season 5,The Lone Ranger,TLR-5,The-Lone-Ranger-bw.jpg,0,1,4.99,Action-Adventure
+Season 1,The Bob Cummings Show,BCS-1,the-bob-cummons-show.jpg,0,0,3.99,Drama
+Season 5,The Adventures of ozzie and Harriet,AOOH-1,ozzie-and-harriet.jpg,0,1,7.99,Family
+Season 1,The Life of Riley,LOR-1,life-of-riley.jpg,0,1,5.99,Comedy
+Season 1,Bat Masterson,BM-1,bat-masterson.jpg,0,0,4.99,Action-Adventure
+Season 2,Date with the Angels,DWTA-1,date-with-angel.jpg,0,1,8.99,Comedy
+Season 3,The Betty Hutton Show,BHS-1,betty-hutton-show.jpg,0,0,3.99,Drama
+Top 10 Best Shows,The Andy Griffith Show,COL-1,Top-10-collection.jpg,0,0,4.99,Family
+Top 5 Best Action Scenes,Staff Picks,COL-2,Top-5-collection.jpg,0,0,2.99,Action-Adventure

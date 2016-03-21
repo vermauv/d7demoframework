@@ -1,0 +1,101 @@
+/**
+ * @file
+ * Provides very basic theme for the Slick slideshow
+ */
+
+.slick .slide__content,.unslick .slide__content {
+    position: relative;
+}
+
+.slick .field-name-field-title,.unslick .field-name-field-title {
+    position: absolute;
+    font-size: 40px;
+    top: 10%;
+    left: 5%;
+}
+
+.slick .field-name-field-body,.unslick .field-name-field-body {
+    position: absolute;
+    top: 25%;
+    left: 5%;
+}
+
+.slick .field-name-field-media img,.unslick .field-name-field-media img {
+    width: 100%;
+}
+
+.slick-dots {
+    list-style: none;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.slick-dots li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.slick-dots li:last-child {
+    margin-right: 0;
+}
+
+.slick-dots button {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+}
+
+.slick__arrow .slick-prev {
+    position: absolute;
+    top: 50%;
+    left: 0;
+}
+
+.slick__arrow .slick-next {
+    position: absolute;
+    top: 50%;
+    right: 0;
+}
+
+.classy-panel-styles-pane.pane-image-gradient-white-rtl .field-name-field-media img:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(to left, rgba(243, 239, 233, 0.7) 40%, rgba(243, 239, 233, 0.4) 45%, rgba(243, 239, 233, 0.1) 50%, rgba(243, 239, 233, 0) 100%);
+}
+
+.classy-panel-styles-pane.pane-image-gradient-white-ltr .field-name-field-media:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(to right, rgba(243, 239, 233, 0.7) 40%, rgba(243, 239, 233, 0.4) 45%, rgba(243, 239, 233, 0.1) 50%, rgba(243, 239, 233, 0) 100%);
+}
+
+.classy-panel-styles-pane.pane-image-gradient-black-rtl .field-name-field-media:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(to left, rgba(15, 15, 15, 0.7) 40%, rgba(15, 15, 15, 0.4) 45%, rgba(15, 15, 15, 0.1) 50%, rgba(15, 15, 15, 0) 100%);
+}
+
+.classy-panel-styles-pane.pane-image-gradient-black-ltr .field-name-field-media:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(to right, rgba(15, 15, 15, 0.7) 40%, rgba(15, 15, 15, 0.4) 45%, rgba(15, 15, 15, 0.1) 50%, rgba(15, 15, 15, 0) 100%);
+}

@@ -1,0 +1,30 @@
+name = DFS WEM Users
+description = User profile configuration for the WEM Demo.
+core = 7.x
+package = DFS Submodules
+
+dependencies[] = ctools
+dependencies[] = df_engage
+dependencies[] = features
+dependencies[] = lightning_roles
+dependencies[] = page_manager
+dependencies[] = panelizer
+dependencies[] = strongarm
+
+features[ctools][] = page_manager:pages_default:1
+features[ctools][] = panelizer:panelizer:1
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:2
+features[panelizer_defaults][] = user:user:default
+features[variable][] = panelizer_user:user:page_manager_selection
+features[variable][] = panelizer_user:user_allowed_layouts
+features[variable][] = panelizer_user:user_allowed_layouts_default
+features[variable][] = panelizer_user:user_allowed_types_default
+features[variable][] = panelizer_user:user_default
+
+; Information added by Drupal.org packaging script on 2016-02-29
+version = "7.x-1.17"
+core = "7.x"
+project = "df"
+datestamp = "1456776652"
+

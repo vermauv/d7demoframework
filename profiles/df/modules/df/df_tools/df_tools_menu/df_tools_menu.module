@@ -1,0 +1,48 @@
+<?php
+/**
+ * @file
+ * Code for the df_tools_menu feature.
+ */
+
+/**
+ * Helper function to return a child menu link for a node.
+ */
+function df_tools_menu_child_add_node($parent_path, $entity, $menu = 'main-menu') {
+  // Remove orphaned menu links if any exist.
+  $menu_info = db_select('menu_links', 'ml')
+    ->condition('ml.link_title' , $entity->title)
+    ->fields('ml', array('mlid'))
+    ->execute()
+    ->fetchAll();
+  foreach($menu_info as $key => $value) {
+    menu_link_delete($menu_info[$key]->mlid);
+  }
+  $parent = df_tools_menu_parent($parent_path);
+  // Add the new menu link.
+  $link = array(
+    'menu_name' => $menu,
+    'link_path' => 'node/' . $entity->nid,
+    'router_path' => 'node/%',
+    'link_title' => $entity->title,
+    'module' => 'menu',
+    'weight' => 0,
+    'plid' => $parent->mlid,
+  );
+  menu_link_save($link);
+  // Add translation.
+  t($entity->title);
+}
+
+/**
+ * Helper function to return menu link parent info.
+ */
+function df_tools_menu_parent($parent_path) {
+  // Get the parent menu_link mlid.
+  $parent = db_select('menu_links', 'ml')
+    ->condition('ml.link_path' , $parent_path)
+    ->fields('ml', array('mlid'))
+    ->execute()
+    ->fetch();
+  return $parent;
+}
+

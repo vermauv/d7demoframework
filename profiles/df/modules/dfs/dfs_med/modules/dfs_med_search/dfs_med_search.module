@@ -1,0 +1,16 @@
+<?php
+/**
+ * @file
+ * Code for the DFS MED Search feature.
+ */
+
+include_once 'dfs_med_search.features.inc';
+
+/**
+ * Implements hook_df_post_import().
+ */
+function dfs_med_search_df_post_import() {
+  return array(
+    array('drupal_cron_run', array())
+  );
+}

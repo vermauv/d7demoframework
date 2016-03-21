@@ -1,0 +1,14 @@
+name = DF Tools Styles
+description = Provides style presets for the Classy Panel Styles module.
+core = 7.x
+package = Demo Framework Tools
+dependencies[] = ctools
+dependencies[] = classy_panel_styles
+
+stylesheets[all][] = css/df_tools_styles.css
+; Information added by Drupal.org packaging script on 2016-02-29
+version = "7.x-1.17"
+core = "7.x"
+project = "df"
+datestamp = "1456776652"
+

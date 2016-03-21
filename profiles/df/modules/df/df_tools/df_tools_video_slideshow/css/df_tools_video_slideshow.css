@@ -1,0 +1,69 @@
+/* Hide fields meant for the pager from the main slideshow content */
+
+.video-slideshow-hidden {
+  display: none;
+}
+
+/* Make sure the bottom controls appears below the video */
+
+.widget_pager_bottom_wrapper {
+  float: left;
+  overflow: hidden;
+  /* This can be changed to match the player size */
+  width: 640px;
+}
+
+/* Reset previous slideshow styles if they were previously set */
+
+.widget_pager_bottom_wrapper > .widget_pager_bottom {
+  position: relative;
+  bottom: inherit;
+  z-index: inherit;
+  left: 0;
+  margin-top: 10px;
+  /* Set an extremely high width for the pager scrolling feature */
+  width: 5000px;
+}
+
+/* Control the width of pager fields */
+
+.widget_pager_bottom_wrapper > .widget_pager_bottom > .views-slideshow-pager-field-item {
+  overflow: hidden;
+  float: left;
+  margin-right: 10px;
+  width: 300px;
+  height: 300px;
+}
+
+/* Make it obvious that slideshow thumbnails can be clicked */
+
+div.views-field-field-video-video {
+  cursor: pointer;
+}
+
+/* Add previous/next buttons for slideshow */
+
+.views-slideshow-pager-previous {
+  background: url("../images/hero-carousel-prev.svg") no-repeat;
+  margin-right: 10px;
+}
+
+.views-slideshow-pager-next {
+  background: url("../images/hero-carousel-next.svg") no-repeat;
+  margin-left: 10px;
+}
+
+.views-slideshow-pager-button {
+  width: 30px;
+  height: 30px;
+  float: left;
+  position: relative;
+  top: 120px;
+  cursor: pointer;
+}
+
+/* Add margin for video to align with buttons */
+
+.views_slideshow_cycle_main_wrapper > .views_slideshow_cycle_main {
+  margin-left: 40px;
+}

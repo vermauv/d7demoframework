@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the DFS WEM News feature.
+ */
+
+include_once 'dfs_wem_news.features.inc';

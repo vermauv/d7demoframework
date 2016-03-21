@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Installation routines for dfs_wem_news feature
+ */
+
+/**
+ * Implements hook_install().
+ */
+function dfs_wem_news_install() {
+  // Create a Fieldable Panels Pane for the news pages.
+  $html = '<div id="lift-recommend"></div>';
+  $fpp_entity = df_tools_fpp_raw_html('Recommended Content', '86B9A9D2-0209-4098-93F2-1002074C6C9C', $html);
+  fieldable_panels_panes_save($fpp_entity);
+}

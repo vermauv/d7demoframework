@@ -1,0 +1,83 @@
+<?php
+/**
+ * @file
+ * Code for the df_tools_bean feature.
+ */
+
+include_once 'df_tools_bean.features.inc';
+
+/**
+ * Implements hook_bean_types_api_info().
+ */
+function df_tools_bean_bean_types_api_info() {
+  return array('api' => 4);
+}
+
+/**
+ * Implements hook_bean_types().
+ */
+function df_tools_bean_bean_types() {
+  $plugins = array();
+  $plugin_path = drupal_get_path('module', 'df_tools_bean') . '/plugins';
+  $plugins['df_bean_personalized_content'] = array(
+    'label' => t('Personalized Content'),
+    'description' => t('A block used for personalization and testing.'),
+    'handler' => array(
+      'class' => 'DFToolsBeanBlock',
+      'parent' => 'bean',
+    ),
+    'path' => $plugin_path,
+    'file' => 'DFToolsBeanBlock.class.php',
+  );
+  $plugins['df_bean_wysiwyg_content'] = array(
+    'label' => t('WYSIWYG Content'),
+    'description' => t('A block used for adding custom content via CKEditor.'),
+    'handler' => array(
+      'class' => 'DFToolsBeanBlock',
+      'parent' => 'bean',
+    ),
+    'path' => $plugin_path,
+    'file' => 'DFToolsBeanBlock.class.php',
+  );
+  return $plugins;
+}
+
+/**
+ * Function to return prepared WYSIWYG bean block data.
+ * @param string $label The required Admin label.
+ * @param string $title The optional block title.
+ * @param string $delta A hard-coded delta for the block.
+ * @param string $html The filtered_html for the block.
+ * @param string $css_class Any additonal block_class to be added.
+ * @return bool|Array representing the Bean data, or FALSE
+ */
+function df_tools_bean_wysiwyg($label, $title, $delta, $html, $css_class) {
+  return array(
+    'label' => $label,
+    'description' => NULL,
+    'title' => $title,
+    'type' => 'df_bean_wysiwyg_content',
+    'data' => array(
+      'view_mode' => 'default',
+    ),
+    'delta' => $delta,
+    'view_mode' => 'default',
+    'created' => strtotime("now"),
+    'log' => '',
+    'uid' => 1,
+    'default_revision' => 1,
+    'revisions' => array(),
+    'vuuid' => uuid_generate(),
+    'uuid' => uuid_generate(),
+    'field_wysiwyg' => array(
+      'und' => array(
+        0 => array(
+          'value' => $html,
+          'format' => 'filtered_html',
+        ),
+      ),
+    ),
+    'css_class' => $css_class,
+  );
+}
+

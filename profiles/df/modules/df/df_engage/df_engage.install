@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * @file
+ * Installation routines for DF Engage feature
+ */
+
+/**
+ * Implements hook_install().
+ */
+function df_engage_install() {
+
+  // Enable Radioactivity on installation.
+  module_enable(array('radioactivity'));
+
+  // Add shortcuts for DF Engage actions.
+  if (module_exists('shortcut')) {
+    // Load the administrator shortcut set
+    $shortcutperrole = variable_get('shortcutperrole');
+    $roles = user_roles();
+    $rid = array_search('administrator', $roles);
+    if ($shortcutperrole && isset($shortcutperrole[$rid])) {
+      $shortcut_set = shortcut_set_load($shortcutperrole[$rid]);
+    }
+    else {
+      // Load the default set if the administrator set doesn't exist
+      $shortcut_set = shortcut_default_set();
+    }
+    // Add shortcuts for rules
+    $t = get_t();
+    $shortcut_set->links[] = array(
+      'link_path' => 'admin/config/workflow/rules/reaction/add',
+      'link_title' => $t('Add rule'),
+      'weight' => 28,
+    );
+    $shortcut_set->links[] = array(
+      'link_path' => 'admin/config/workflow/rules',
+      'link_title' => $t('Find rules'),
+      'weight' => 28,
+    );
+    shortcut_set_save($shortcut_set);
+  }
+
+}

@@ -1,0 +1,214 @@
+/**
+ * Override of misc/vertical-tabs.css.
+ */
+/* todo
+ * Add nav-tabs.js from drupal 8 to extend this to tabs-primary 
+ * (horizontal tabs become vertical for mobile)
+ * Add a configuration option that allows an admin to select left, instead of right for the vertical tabs column
+*/
+
+.vertical-tabs-panes {
+    margin: 0;
+    padding: 0;
+}
+/* remove system styles */
+
+.vertical-tabs-panes fieldset {
+    border: 0px;
+    background: none;
+    padding: 0;
+}
+.vertical-tabs-panes .form-type-select {
+    display: inline-block;
+}
+/* create the two column layout for 960+ */
+
+@media all and (min-width: 960px) and (max-width: 5000px) {
+    /* make all the form elements 65% on node and block forms 
+   * TODO: this needs to be re-done with js that adds the column on admin pages where vertical tabs exist */
+    
+    form[class^='node-'] .fieldset,
+    form[class^='node-'] .form-wrapper,
+    form[class^='node-'] .form-item-title,
+    form[id^='block-'] fieldset,
+    form[id^='block-'] .form-wrapper,
+    form[id^='block-'] .form-item {
+        width: 65%;
+        float: right;
+        /* right column */
+    }
+    /* reset the width for nested form things */
+    
+    form[class^='node-'] .form-wrapper .form-wrapper,
+    form[class^='node-'] .fieldset .fieldset,
+    form[id^='block-'] .form-wrapper .form-wrapper,
+    form[id^='block-'] .vertical-tabs-panes .fieldset,
+    form[id^='block-'] .vertical-tabs-panes .form-item,
+    form[id^='block-'] .fieldset-wrapper > .form-item.form-type-select {
+        width: 100%;
+        float: none;
+    }
+    /* set the context of the region to relative so that origin for the ap column will be the bounds of the region.
+   * todo: use singularity.gs grid classes for the columns instead of absolute positioning.
+   */
+    
+    form[class^='node-'],
+    form[id^='block-'] {
+        position: relative;
+    }
+    /* make the tabs column for the vertical tabs */
+    
+    form[class^='node-'] .vertical-tabs-panes,
+    form[id^='block-'] .vertical-tabs-panes {
+        position: absolute;
+        top: 0;
+        left: 0;
+        /* left column */
+        
+        margin: 0;
+        width: 33%;
+        background: #fff;
+        border: 1px solid #ccc;
+        padding: 10px 20px;
+    }
+    .vertical-tabs-panes #edit-published {
+        background-color: #3eb726;
+        color: #fff;
+        text-shadow: 0 1px 0 #000;
+    }
+    .vertical-tabs-panes #edit-delete {
+        background-color: #ea2d2d;
+        color: #fff;
+        text-shadow: 0 1px 0 #000;
+    }
+    .vertical-tabs-panes #edit-published:hover {
+        text-shadow: 0 1px 0 #333;
+    }
+    /* makes space for the edit visibility title in Block UI */
+    
+    form[id^='block-'] .vertical-tabs-panes {
+        top: 50px;
+    }
+    /* Add a description for node form to create a similar appearance to block UI where there is a description above the tabs 
+     todo; Accomplish this with another method that makes it translatable
+  */
+    
+    form[class^='node-'] .vertical-tabs-panes:before {
+        content: "Additional settings";
+        font-weight: bold;
+        font-size: 1.135em;
+        line-height: 50px;
+    }
+    /* corrects mismatch between the text format div and the text area in the tabs column */
+    
+    form[class^='node-'] #edit-body-und-0-format {
+        width: 99.1%;
+    }
+    #edit-body-und-0-format-help {
+        float: right;
+        width: auto;
+    }
+    form[id^='block-'] #edit-body-format {
+        width: 64.444%;
+        /* left column */
+    }
+    /* re-positions vertical tabs title at the top of the tabs column for Block UI, account settings */
+    
+    #edit-visibility-title,
+    #edit-email-title {
+        position: absolute;
+        left: 0;
+        /* left column */
+        
+        top: 0;
+        width: 30%;
+        padding: 0;
+    }
+    .text-format-wrapper > .description {
+        width: 65%;
+        float: left;
+        /* left column */
+    }
+}
+.vertical-tabs-panes .summary {
+    font-size: .9em;
+}
+@media all and (max-width: 960px) {
+    .vertical-tabs-panes {
+        margin-top: 1em;
+    }
+}
+
+/* Theme our drop buttons. */
+.vertical-tabs-panes .ctools-dropbutton-wrapper {
+  display: inline-block;
+  vertical-align: top;
+  padding-right: 10px;
+}
+
+.vertical-tabs-panes .ctools-dropbutton-wrapper .ctools-content {
+  padding: 0;
+}
+
+.vertical-tabs-panes .ctools-dropbutton-wrapper .ctools-button {
+  background-color: rgb(47, 166, 229);
+}
+
+.vertical-tabs-panes .ctools-dropbutton-wrapper ul {
+  margin: 0;
+}
+
+.vertical-tabs-panes .ctools-dropbutton-wrapper ul li {
+    margin: 0;
+    background-color: inherit;
+}
+
+.vertical-tabs-panes .ctools-dropbutton-wrapper .ctools-button.alternate {
+  background-color: rgb(221, 221, 221);
+}
+
+.vertical-tabs-panes .ctools-dropbutton-wrapper .ctools-button .ctools-link a {
+  color: white;
+}
+
+.vertical-tabs-panes .ctools-dropbutton-wrapper .ctools-button.alternate .ctools-link a {
+  color: rgb(44, 44, 44);
+}
+
+.vertical-tabs-panes .ctools-dropbutton-wrapper .ctools-button input[type="submit"] {
+  margin: 0;
+  color: white;
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+  text-shadow: rgb(14, 49, 68) 0 1px 0;
+  background: transparent;
+  border: none;
+  transition: .2s;
+}
+
+.vertical-tabs-panes .ctools-dropbutton-wrapper .ctools-button.alternate input[type="submit"] {
+  color: rgb(44, 44, 44);
+  text-shadow: rgb(244, 244, 244) 0 1px 0;
+}
+
+.vertical-tabs-panes .ctools-dropbutton-wrapper .ctools-button input[type="submit"]:hover {
+  background: #58b7ea;
+}
+
+.vertical-tabs-panes .ctools-dropbutton-wrapper .ctools-button.alternate input[type="submit"]:hover {
+  background: #e3e3e3;
+}
+
+.vertical-tabs-panes .ctools-dropbutton-processed .ctools-content li {
+  margin: 0;
+  background: none;
+}
+
+.vertical-tabs-panes .ctools-dropbutton-wrapper .ctools-link a {
+  top: 15px
+}
+
+.vertical-tabs-panes .ctools-dropbutton-wrapper .open .ctools-link a {
+  top: 10px;
+}

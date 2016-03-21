@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the DF Tools Analytics Dashboard feature.
+ */
+
+include_once 'df_tools_analytics_dashboard.features.inc';

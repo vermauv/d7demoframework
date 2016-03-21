@@ -1,0 +1,142 @@
+<dl class="summary">
+<dt>Persona:</dt>
+<dd>Content Curator (editor) and Head Editor (with publish responsibility)</dd>
+
+<dt>What the Demo Covers:</dt>
+<dd>
+This scenario demonstrates the editing and publishing workflow in Drupal, allowing editors to quickly and easily update content and rich media, submit it for approval, and approve and publish to a site.  Non-technical ease of use.  Contrast this with a heavier process e.g. Dream Weaver, other CMS’s.  Highlights:
+
+<ul>
+  <li>UI makes it simple to recognize new content that needs to be approved
+  <li>Workflow designed for a fast-moving industry where content requiring review is constantly being written and edited</li>
+  <li>Easy for non-technical users to author, review and publish content</li>
+</ul>
+</dd>
+
+<dt>Login Credentials:</dt>
+<dd>
+Administrator:  admin/admin
+Curator:  EricaWebb/password
+Reviewer:  PaulSimon/password
+</dd>
+</dl>
+
+<ol class="steps">
+  <li>
+    Log in as the user EricaWebb (password:  password)
+    <ul>
+      <li>Go to Erica’s account page</li>
+    </ul>
+
+    <blockquote>EricaWebb is a ‘Curator’ meaning she can add new content and update existing content but cannot publish content.  
+    When Erica logs in, she’ll see an administrator toolbar that’s tailored for her. 
+    Drupal automatically shows tools and information that are appropriate for the user based on their permissions, governed by robust role-based controls.
+
+    Drupal also doesn’t require a separate editorial interface or application. Content can be managed directly within the site.</blockquote>
+  </li>
+
+
+  <li>
+    Click on “Big Air at Big Sky” and click the “Quick Edit” (pencil) icon in the top admin navigaton toolbar.  
+    <ul>
+      <li>Hover over various fields to show the highlight popup.</li>
+      <li>Click the Body field to show the WYSIWYG, but do not edit. </li>
+      <li>Click on the title field and add “, Montana” to the end of the title.</li>
+    </ul>
+
+    <blockquote>We can use a number of tools to manage our content, including making quick edits with the inline tools and WYSIWYG editors. 
+    We can edit not only the key data, like a title, text, video or images, but also edit related content presented dynamically. 
+    We don’t have to worry about finding content in a byzantine administrative interface.</blockquote>
+  </li>
+
+  <li>
+    Click save, then click Moderate.
+
+    <blockquote>We said earlier that Erica can edit, but not publish content. In most organizations, there are defined workflows for content publication, and Drupal has flexible models for supporting complex workflows. 
+    What Erica’s done is create a Draft of this content, and the Moderation tab shows when the revision was created, what was changed (the title), by whom (Erica), and how (in-place editing).</blockquote>
+  </li>
+
+  <li>
+    Click the Apply button next to the “Set moderation state” dropdown.
+
+    <blockquote>The draft Erica has created is not yet live - it needs to be reviewed and approved. 
+    By changing the state to “Needs Review”, this content gets passed along to the next step in the review chain. 
+    Since Drupal’s driven by events, we could have this change trigger an email out to a site editor, which we’re referring to as Reviewers here.</blockquote>
+  </li>
+
+  <li>
+    Log out Erica and log in as the ‘Reviewer’ user PaulSimon (password:password)
+    <ul>
+      <li>Go to Paul’s profile page and explains what makes him tick.</li>
+    </ul>
+  </li>
+
+  <li>
+    Open the ‘Menu’ on the top left navigation bar and click ‘My Workbench’  to go to the workbench screen. 
+
+    <blockquote>I’m now logged in as the head editor that has full permission in the Drupal system who has publish capabilities. 
+    I can go in and read the latest draft that needs approval, make any edits and then if I’m happy with it, publish this draft to become the latest version.</blockquote>
+  </li>
+
+  <li>
+    Click on the “Needs Review” tab and note EricaWebb’s draft for the “Big Air at Big Sky, Montana” node.
+    <ul>
+      <li>Click on the node title to view the Published node first, then click on “View Draft” to see Erica’s changes. </li>
+      <li>Set the moderation state to “Published” and click Apply.</li>
+    </ul>
+
+    <blockquote>I can view the draft here, change the status to published, and apply. Now that content is live on the site. 
+    In Drupal, content isn’t constrained to a single page experience - it can be presented in a variety of locations, governed by context. 
+    What if we want to see what a number of edits will look like together? Let’s take a look at the example of preparing content for a campaign. 
+    How will the home page look with different content interacting?</blockquote>
+  </li>
+
+  <li>
+    Go to the homepage and hover over  “Munich.There’s Beer. But there’s more.”
+    Mouse over the Gear icon and then click the “New Draft” link and you will be directed to the node edit screen.
+
+    <blockquote>We aren’t limited to in-place editing - we can get a more full-featured editor at any time, still using the power of contextual links. Let’s make a few changes to the “Munich. There’s Beer.” article.</blockquote>
+  </li>
+
+  <li>
+    Scroll down and click “Select” on the image below the WYSIWYG editor. While talking, in the dialog box that opens, click the ‘Library’ tab. Click the Upload tab. Click the Web tab.
+
+    <blockquote>In Drupal’s media manager, we can select a new photo to upload from our desktop, or search for media already in the system. 
+    Drupal handles automatically cropping, scaling, rotating and transforming media based on rules business users can configure.
+
+    Drupal can also be integrated with Acquia Media Drive, a system that enables rights management and media sharing across a network of Drupal sites, through this same simple interface.</blockquote>
+  </li>
+
+  <li>
+    With the Web tab open paste in http://farm6.staticflickr.com/5194/7061080705_90b7fc91aa_b_d.jpg and click Submit.
+
+    <blockquote>For this demo, let’s have Drupal grab an image directly from the web. 
+    We’re not just referencing images, we’re pulling them under management.
+    They’re now governed by the same publishing workflows and controls as native content.</blockquote>
+  </li>
+
+  <li>
+    Scroll down and set the ‘Site Preview Collection’ dropdown to “Munich Calling” then check the “Remove collection from previous revision” checkbox. Click “Save”.
+    <img src="&path&/images/site-preview-collection.png" alt="Site preview collection" />
+
+    <blockquote>[As you scroll past], note that Drupal allows for different metadata to be added to content - in this case we’ve got a simple, pre-defined taxonomy that allows us to relate content to interests identified in user profiles. Taxonomy can be pre-defined, editor-defined like folksonomy and hierarchical.
+
+    We’re adding our article to the “Munich Calling” campaign collection. This will let us preview the effects of multiple changes in-context, and batch-publish changes when we’re ready to launch a campaign.</blockquote>
+  </li>
+
+  <li>
+    Go to the homepage.  Note that the old photo is still the published version.
+    Click the IIB trigger (clock icon in the page, top right):
+    <img src="&path&/images/iib-trigger.png" alt="IIB trigger" />
+
+    Choose “Collection” as the condition and “Munich Calling” as the collection then click “Enable Preview”. 
+
+    <blockquote>Now we can see Paul’s edit - the new photo - on the home page, highlighted by the preview icon.</blockquote>
+  </li>
+
+  <li>
+    Click the Responsive preview button (iPhone icon in the toolbar) and select iPhone 5.
+
+    <blockquote>We can even get a preview of how this change will impact different delivery channels. We can switch between multiple tablet and handset formats, in portrait and landscape orientations.</blockquote>
+  </li>
+</ol>

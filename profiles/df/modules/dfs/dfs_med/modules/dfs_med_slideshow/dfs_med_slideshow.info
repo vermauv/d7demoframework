@@ -1,0 +1,64 @@
+name = DFS MED Slideshow
+description = Slideshow Slide node bundle and associated components.
+core = 7.x
+package = DFS Submodules
+
+dependencies[] = df_engage
+dependencies[] = dfs_med_base
+dependencies[] = draggableviews
+dependencies[] = media
+dependencies[] = panelizer
+dependencies[] = views
+dependencies[] = views_content
+dependencies[] = views_fieldsets
+dependencies[] = views_slideshow_cycle
+
+features[ctools][] = panelizer:panelizer:1
+features[ctools][] = strongarm:strongarm:1
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[field_instance][] = node-slideshow_slide-body
+features[field_instance][] = node-slideshow_slide-field_link
+features[field_instance][] = node-slideshow_slide-field_main_image
+features[field_instance][] = node-slideshow_slide-field_persona
+features[field_instance][] = node-slideshow_slide-field_site_section
+features[image][] = home-slide
+features[node][] = slideshow_slide
+features[panelizer_defaults][] = node:slideshow_slide:default:featured
+features[variable][] = additional_settings__active_tab_slideshow_slide
+features[variable][] = comment_anonymous_slideshow_slide
+features[variable][] = comment_default_mode_slideshow_slide
+features[variable][] = comment_default_per_page_slideshow_slide
+features[variable][] = comment_form_location_slideshow_slide
+features[variable][] = comment_preview_slideshow_slide
+features[variable][] = comment_slideshow_slide
+features[variable][] = comment_subject_field_slideshow_slide
+features[variable][] = diff_enable_revisions_page_node_slideshow_slide
+features[variable][] = diff_show_preview_changes_node_slideshow_slide
+features[variable][] = diff_view_mode_preview_node_slideshow_slide
+features[variable][] = field_bundle_settings_node__slideshow_slide
+features[variable][] = language_content_type_slideshow_slide
+features[variable][] = menu_options_slideshow_slide
+features[variable][] = menu_parent_slideshow_slide
+features[variable][] = node_options_slideshow_slide
+features[variable][] = node_preview_slideshow_slide
+features[variable][] = node_submitted_slideshow_slide
+features[variable][] = panelizer_defaults_node_slideshow_slide
+features[variable][] = panelizer_node:slideshow_slide_allowed_layouts
+features[variable][] = panelizer_node:slideshow_slide_allowed_layouts_default
+features[variable][] = panelizer_node:slideshow_slide_allowed_types_default
+features[variable][] = panelizer_node:slideshow_slide_default
+features[variable][] = pathauto_node_slideshow_slide_pattern
+features[variable][] = save_continue_slideshow_slide
+features[variable][] = webform_node_slideshow_slide
+features[variable][] = workbench_moderation_default_state_slideshow_slide
+features[views_view][] = homepage_slideshow
+
+features_exclude[dependencies][views_slideshow] = views_slideshow
+
+; Information added by Drupal.org packaging script on 2016-02-29
+version = "7.x-1.17"
+core = "7.x"
+project = "df"
+datestamp = "1456776652"
+

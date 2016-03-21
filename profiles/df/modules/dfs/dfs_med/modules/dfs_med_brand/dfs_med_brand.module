@@ -1,0 +1,24 @@
+<?php
+/**
+ * @file
+ * Code for the DFS MED Brand feature.
+ */
+
+include_once 'dfs_med_brand.features.inc';
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function dfs_med_brand_form_views_exposed_form_alter(&$form, &$form_state) {
+  if ($form['#id'] == 'views-exposed-form-brand-hero-panel-pane-2') {
+    if (isset($form['type']['#options']['episodic_collection'])) {
+      // Rename and move the 'Collection' option to the bottom of the list.
+      unset($form['type']['#options']['episodic_collection']);
+      $form['type']['#options']['episodic_collection'] = 'Box Sets & Offers';
+    }
+    // 'Series' is now default but force this in case the view gets edited.
+    if (!isset($form_state['view']->exposed_input['type']) && isset($form['type']['#options']['series'])) {
+      $form_state['input']['type'] = 'series';
+    }
+  }
+}

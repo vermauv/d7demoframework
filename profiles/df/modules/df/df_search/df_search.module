@@ -1,0 +1,18 @@
+<?php
+/**
+ * @file
+ * Drupal needs this blank file.
+ */
+
+/**
+ * Implements hook_js_alter().
+ */
+function df_search_js_alter(&$javascript) {
+  // Replace the default jQuery autocomplete JS bundled with Search Autocomplete
+  // with a version that supports closing the autocomplete using a button.
+  $path = drupal_get_path('module', 'search_autocomplete') . '/js/jquery.autocomplete.js';
+
+  if (isset($javascript[$path])) {
+    drupal_add_js(drupal_get_path('module', 'df_search') . '/js/jquery.autocomplete.js');
+  }
+}

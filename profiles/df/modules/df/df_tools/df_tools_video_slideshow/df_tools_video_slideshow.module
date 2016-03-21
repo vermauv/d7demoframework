@@ -1,0 +1,29 @@
+<?php
+/**
+ * @file
+ * Code for the DF Video Slideshow feature.
+ */
+
+include_once 'df_tools_video_slideshow.features.inc';
+
+
+/**
+ * Conditionally adds CSS/JS to the Slideshow View
+ */
+function df_tools_video_slideshow_views_pre_render(&$view) {
+  if ($view->name == 'video_slideshow') {
+    $path = drupal_get_path('module', 'df_tools_video_slideshow');
+    drupal_add_css($path . '/css/df_tools_video_slideshow.css');
+    drupal_add_Js($path . '/js/df_tools_video_slideshow.js');
+  }
+}
+
+/**
+ * Conditionally adds wrappers and previous/next buttons for the Slideshow View.
+ */
+function df_tools_video_slideshow_preprocess_views_slideshow(&$variables) {
+  if ($variables['view']->name == 'video_slideshow') {
+    $variables['slideshow'] = '<div class="views_slideshow_cycle_main_wrapper">' . $variables['slideshow'] . '</div>';
+    $variables['bottom_widget_rendered'] = '<div class="views-slideshow-pager-button views-slideshow-pager-previous"></div><div class="widget_pager_bottom_wrapper">' . $variables['bottom_widget_rendered'] . '</div><div class="views-slideshow-pager-button views-slideshow-pager-next"></div>';
+  }
+}

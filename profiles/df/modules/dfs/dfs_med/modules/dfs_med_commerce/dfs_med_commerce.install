@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * Installation routines for DFS MED Commerce feature
+ */
+
+/**
+ * Implements hook_install().
+ */
+function dfs_med_commerce_install() {
+  // Disable the default commerce_checkout rule.
+  $rules_config = rules_config_load('commerce_checkout_order_status_update');
+  $rules_config->active = FALSE;
+  $rules_config->save();
+}
+

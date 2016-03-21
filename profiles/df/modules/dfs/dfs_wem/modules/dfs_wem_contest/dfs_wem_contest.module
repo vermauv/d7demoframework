@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the DFS WEM Contest feature.
+ */
+
+include_once 'dfs_wem_contest.features.inc';

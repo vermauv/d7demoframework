@@ -1,0 +1,14 @@
+name = DF Tools Vertical Tabs
+description = Provides a rsponsive version of vertical tabs like the one that is in Drupal 8 core
+package = Demo Framework Tools
+core = 7.x
+
+dependencies[] = ctools
+dependencies[] = workbench_moderation_buttons
+
+; Information added by Drupal.org packaging script on 2016-02-29
+version = "7.x-1.17"
+core = "7.x"
+project = "df"
+datestamp = "1456776652"
+

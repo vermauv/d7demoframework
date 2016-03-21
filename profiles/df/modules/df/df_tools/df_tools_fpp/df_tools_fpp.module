@@ -1,0 +1,84 @@
+<?php
+
+/**
+ * @file
+ *   Contains utility functions and migrations for creating various Fieldable Panel Panes
+ */
+
+/**
+ * Creates a raw_html Fieldable Panel Pane
+ *
+ * @param string $title The Pane's title, or an empty string if no title needed.
+ * @param string $uuid A UUID to assign to this FPP
+ * @param string $html The HTML content for this Pane
+ * @return bool|Object An object representing this Pane, or FALSE if errors.
+ */
+function df_tools_fpp_raw_html($title, $uuid, $html = '') {
+  // Form the raw_html Pane
+  $pane = array(
+    'title' => $title,
+    'bundle' => 'raw_html',
+    'category' => 'Add HTML',
+    'reusable' => false,
+    'uuid' => $uuid,
+    'field_raw_html' => array (
+      'und' => array (
+        0 => array (
+          'value' => $html,
+          'format' => 'raw_html',
+        ),
+      ),
+    ),
+  );
+  return fieldable_panels_panes_create($pane);
+}
+
+/**
+ * Creates a map Fieldable Panel Pane
+ *
+ * @param string $title The Pane's title, or an empty string if no title needed.
+ * @param string $uuid A UUID to assign to this FPP
+ * @param string $address The Map Address content for this Pane
+ * @param string $info Optional Map Information content for this Pane
+ * @return bool|Object An object representing this Pane, or FALSE if errors.
+ */
+function df_tools_fpp_map($title, $uuid, $address, $info = '') {
+  // Form the map Pane
+  $pane = array(
+    'title' => $title,
+    'bundle' => 'map',
+    'category' => 'Add Map',
+    'reusable' => false,
+    'uuid' => $uuid,
+    'field_map_address' => array (
+      'und' => array (
+        0 => array (
+          'value' => $address,
+        ),
+      ),
+    ),
+    'field_map_information' => array (
+      'und' => array (
+        0 => array (
+          'value' => $info,
+          'format' => 'full_html',
+        ),
+      ),
+    ),
+  );
+  return fieldable_panels_panes_create($pane);
+}
+
+/**
+ * Implements hook_migrate_api
+ */
+function df_tools_fpp_migrate_api() {
+  $api = array(
+    'api' => 2,
+    'migrations' => array(
+      'DFRawHTMLFPP' => array('class_name' => 'DFRawHTMLFPP', 'group_name' => 'df'),
+      'DFTextFPP' => array('class_name' => 'DFTextFPP', 'group_name' => 'df'),
+    ),
+  );
+  return $api;
+}

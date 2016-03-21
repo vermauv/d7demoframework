@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ *   Contains an example Migration for the Landing Nodes migration class
+ */
+
+/**
+ * Implements hook_migrate_api
+ */
+function df_tools_panelizer_migrate_api() {
+  $api = array(
+    'api' => 2,
+    'migrations' => array(
+      'DFLandingNodes' => array('class_name' => 'DFLandingNodes', 'group_name' => 'df'),
+    ),
+  );
+  return $api;
+}

@@ -1,0 +1,12 @@
+name = DF Tools Color
+description = "Auto-magically lets you override colors in any theme."
+core = 7.x
+package = Demo Framework Tools
+
+dependencies[] = libraries
+; Information added by Drupal.org packaging script on 2016-02-29
+version = "7.x-1.17"
+core = "7.x"
+project = "df"
+datestamp = "1456776652"
+

@@ -1,0 +1,155 @@
+<dl class="summary">
+<dt>Persona:</dt>
+<dd>person responsible for updating product pages.  Product owner/product marketer/brand manager.  Digital marketing roles.</dd>
+
+<dt>What the Demo Covers:</dt>
+<dd>How quickly and easily a digital marketer can gain the inspiration and ideas for a new campaign, and then execute an online campaign/microsite without waiting for it to move through the IT queue.</dd>
+
+<dt>Login Credentials:</dt>
+<dd>
+Administrator:  admin/admin
+Digital Marketer:  EmilyPhillips/password
+</dd>
+
+<dt>Setup:</dt>
+<dd>Download <a href="http://farm9.staticflickr.com/8248/8665273389_b84b81dcac_h_d.jpg">image</a> to your desktop so you’ll be able to upload.</dd>
+</dl>
+
+<ol class="steps">
+  <li>
+     Log in as the user EmilyPhillips (password:  password)
+
+    <blockquote>Emily Phillips is a digital marketer with ‘Curator’ and ‘Reviewer’ roles.  She needs to add a landing page and market it.</blockquote>
+  </li>
+
+
+  <li>
+    Choose ‘Add Content’ from the ‘Shortcuts’ menu and select ‘Add Content’ from the shortcut list.  Select ‘Landing Page’ from the list of available content.
+  </li>
+
+  <li>
+    Enter a title <em>London Calling</em> in the Title box.
+  </li>
+
+  <li>
+    Select the <em>Campaign</em> tab, and in the Tags field, enter <em>promo_londoncalling</em>. 
+
+    <blockquote>We can use Drupal’s metadata functionality to tag our content for our marketing automation or CRM systems.</blockquote>
+  </li>
+
+  <li>
+    In the <em>Menu Settings</em> tab, click <em>Provide Menu Link</em>, and select <em>Trips</em> from <em>Parent Item</em>.
+
+    <blockquote>We can add our new landing page to a menu without intervention from a designer or developer.</blockquote>
+  </li>
+
+  <li>
+    In the <em>URL path settings</em> tab, uncheck <em>Generate automatic URL alias</em>, and enter <em>london</em> in the <em>URL alias</em> field.
+
+    <blockquote>We can create a custom URL alias - we’re not beholden to a specific site structure, and no workarounds are necessary to craft optimal SEO or SEM URLs.</blockquote>
+  </li>
+
+  <li>
+    Click on <em>Meta tags</em> tab.
+
+    <blockquote>We can add meta tag information directly within the editorial interface, to ensure SEO performance.</blockquote>
+  </li>
+
+  <li>
+    Click on the <em>Scheduling options</em> tab, pause and click Save.
+
+    <blockquote>We can schedule the publication and retirement of our section, page or site.</blockquote>
+  </li>
+
+  <li>
+    Click on <em>customize this page</em> on the bottom toolbar.  Your new blank landing page template will come up.
+
+    <blockquote>We now have a blank canvas to fill with our content for this campaign site.</blockquote>
+  </li>
+
+  <li>
+    Click the ‘+’ sign inside of the box marked ‘Slider’
+
+    <img src="&path&/images/panels-add-pane.jpg" alt="Add Panels pane" />
+  </li>
+
+  <li>
+    Scroll down to the bottom left of the component list and select Add Image. Click the Select Image button and choose the image you’d previously downloaded.
+
+    <blockquote>We can assemble our page from a variety of components. We can create new content directly, like we’ll do here by uploading an image directly. We can also choose to reuse content from anywhere else in Drupal, or pull data dynamically from other systems.</blockquote>
+  </li>
+
+  <li>
+    In the Slider Gutter region, click the + icon again. Scroll down the page to ‘Widgets’, and click <em>add map</em>.
+
+    <img src="&path&/images/panels-add-widget.jpg" alt="Add Panels widget" />
+  </li>
+
+  <li>
+    Enter a title for the map, an address, and a brief description. For simplicity, just enter <em>Tower Bridge, London, UK</em>.  Click save.  Map will appear.
+  </li>
+
+  <li>
+    Click the + icon in the Second Column. Click View panes, scroll down list and click Add on “Travel to London for Less” block.
+
+    <blockquote>
+      Dynamic content blocks can be provided by views we’ve assembled with the Drupal UI, or from external systems. 
+    </blockquote>
+  </li>
+
+  <li>
+    Show how easy it is to rearrange elements on the screen by clicking on the four arrow box in the upper right of the map element and dragging it to a different location on the screen
+
+    <img src="&path&/images/panels-dragdrop.jpg" alt="Drag and drop Panels panes" />
+  </li>
+
+  <li>
+    Drag and drop the image wherever you’d like it on the page.
+  </li>
+
+  <li>
+    Click save as custom and show landing page completed with images and other elements positioned as you wanted them.
+    
+    [check the Content WEM Core Messaging doc] for messaging.  
+    
+    <div class="error">NOTE:  The ‘Blocks’ tab contains Beans used on the DFS_WEM demo homepage. Avoid ‘Context Admin; Experimental’ tab.</div>
+  </li>
+
+  <li>
+    Click “Change This Layout” from the bottom toolbar.
+
+    <blockquote>
+      Drupal also allows content owners to change the presentation of content, not just the content composition. We can easily switch between other responsive layouts that are available out of the box, or have been provided by our design team.
+    </blockquote>
+  </li>
+
+  <li>
+    Choose “Sanderson Flipped” (three boxes over two boxes). Drag the Slider Gutter to Row 1: Third Column and the First Column to the Row 2: First Column regions then save.
+
+    <blockquote>
+    We’ve put managing content experiences directly in the hands of the editor, but we’re still ensuring brand continuity with consistent overall visual design. But content creation is only part of the equation. How do we measure performance, and trigger new experiences?
+    </blockquote>
+  </li>
+
+  <li>
+    In the admin bar, click Shortcuts, then click Rules.
+
+    <blockquote>
+    Drupal’s rules system allows you to react to events within the system and trigger actions.
+    </blockquote>
+  </li>
+
+  <li>
+    Scroll down and click on ‘Add visit data to Marketo’
+
+    <blockquote>
+    We mentioned earlier than when Jennifer, our end-user, joined the vacation giveaway contest, we were triggering a variety of actions. One of those actions was to send that interaction data to our marketing automation system, in this case Marketo.
+
+    Drupal rules let business users watch for events, filter them with conditional logic, and react to them by manipulating data, communicating with external systems or changing the user’s experience.
+
+    In this case, we’re watching for users to join groups. When they do, we’re collecting some information from Drupal about the user and the content they’re interacting with, then transmitting that data to Marketo as an interesting moment in a multi-touch campaign. For the sake of this demo, we’re also popping up a message on the site to let you know made that data transmission.
+
+    In this demo, we already knew a lot about Jennifer. Drupal’s CRM and marketing automation integration can be used to capture data about anonymous users as well, or be linked to Drupal’s webform management modules to transmit form data directly without programming. 
+    </blockquote>
+  </li>
+</ol>

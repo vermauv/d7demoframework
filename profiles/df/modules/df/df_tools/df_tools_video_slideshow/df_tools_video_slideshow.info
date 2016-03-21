@@ -1,0 +1,47 @@
+name = DF Tools Video Slideshow
+description = Contains a Video Slide content type and Video Slideshow View
+core = 7.x
+package = Demo Framework Tools
+
+dependencies[] = file
+dependencies[] = file_entity
+dependencies[] = lightning_base
+dependencies[] = media
+dependencies[] = media_youtube
+dependencies[] = strongarm
+dependencies[] = text
+dependencies[] = views
+dependencies[] = views_slideshow
+
+features[ctools][] = strongarm:strongarm:1
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[field_base][] = field_related_video
+features[field_instance][] = node-video_slide-body
+features[field_instance][] = node-video_slide-field_related_video
+features[node][] = video_slide
+features[variable][] = comment_anonymous_video_slide
+features[variable][] = comment_default_mode_video_slide
+features[variable][] = comment_default_per_page_video_slide
+features[variable][] = comment_form_location_video_slide
+features[variable][] = comment_preview_video_slide
+features[variable][] = comment_subject_field_video_slide
+features[variable][] = comment_video_slide
+features[variable][] = field_bundle_settings_node__video_slide
+features[variable][] = language_content_type_video_slide
+features[variable][] = menu_options_video_slide
+features[variable][] = menu_parent_video_slide
+features[variable][] = node_options_video_slide
+features[variable][] = node_preview_video_slide
+features[variable][] = node_submitted_video_slide
+features[views_view][] = video_slideshow
+
+features_exclude[dependencies][ctools] = ctools
+features_exclude[dependencies][features] = features
+
+; Information added by Drupal.org packaging script on 2016-02-29
+version = "7.x-1.17"
+core = "7.x"
+project = "df"
+datestamp = "1456776652"
+

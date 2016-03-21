@@ -1,0 +1,22 @@
+<?php
+/**
+ * @file
+ * Code for the DF Engage feature.
+ */
+
+include_once 'df_engage.features.inc';
+
+/**
+ * Implements hook_migrate_api().
+ */
+function df_engage_migrate_api() {
+  $api = array(
+    'api' => 2,
+    'migrations' => array(
+      'DemoFrameworkBaseNodesUUID' => array('class_name' => 'DemoFrameworkBaseNodesUUID', 'group_name' => 'df'),
+      'DemoFrameworkSiteSectionTerms' => array('class_name' => 'DemoFrameworkSiteSectionTerms', 'group_name' => 'df'),
+    ),
+  );
+  return $api;
+}
+

@@ -1,0 +1,136 @@
+<?php
+
+/**
+ * @file
+ * Installation routines for DFS MED feature
+ */
+
+/**
+ * Implements hook_install().
+ */
+function dfs_med_install() {
+
+  // Enable custom theme on install.
+  $theme = 'med';
+  theme_enable(array($theme));
+  variable_set('theme_default', $theme);
+
+  // Add df_tools_color support
+  variable_set('df_tools_color_css', drupal_get_path('theme', 'med') . '/css/med.css');
+
+  // Do not require email authentication during user registration.
+  variable_set('user_email_verification', '0');
+
+  // Set DFS MED Home as the default homepage on install.
+  variable_set('site_frontpage', 'dfs-med-home');
+
+  // Do not attach any sample orders for users.
+  variable_set('df_commerce_add_sample_orders', FALSE);
+
+  // Set up Slideshow on homepage.
+  db_merge("block")
+    ->key(array('module' => 'views', 'delta' => 'homepage_slideshow-block', 'theme' => $theme))
+    ->fields(array(
+      'region' => 'highlighted',
+      'status' => 1,
+      'weight' => 0,
+      'visibility' => 1,
+      'pages' => '<front>',
+      'cache' => -1,
+      'title' => '<none>',
+      'css_class' => '',
+    ))
+    ->execute();
+
+  // Set user header block
+  db_merge("block")
+    ->key(array('module' => 'dfs_med_base', 'delta' => 'dfs_med_base_user_header', 'theme' => $theme))
+    ->fields(array(
+      'region' => 'header',
+      'status' => 1,
+      'weight' => -13,
+      'visibility' => 0,
+      'pages' => '',
+      'cache' => -1,
+      'title' => '<none>',
+      'css_class' => 'columns large-4 medium-7 left push-1',
+    ))
+    ->execute();
+
+  // Remove unused Cart block
+  db_merge("block")
+    ->key(array('module' => 'commerce_cart', 'delta' => 'cart', 'theme' => $theme))
+    ->fields(array(
+      'region' => '-1',
+      'status' => 0,
+      'weight' => 0,
+      'visibility' => 0,
+      'pages' => '',
+      'cache' => -1,
+      'title' => '',
+      'css_class' => '',
+    ))
+    ->execute();
+
+  // Add in search classes for default search block
+  db_merge("block")
+    ->key(array('module' => 'search', 'delta' => 'form', 'theme' => $theme))
+    ->fields(array(
+      'region' => 'header',
+      'status' => 1,
+      'weight' => -14,
+      'visibility' => 0,
+      'pages' => '',
+      'cache' => -1,
+      'title' => '',
+      'css_class' => 'large-4 medium-4 right columns',
+    ))
+    ->execute();
+
+  // Remove unused 'Powered by Drupal' block
+  db_merge("block")
+    ->key(array('module' => 'system', 'delta' => 'powered-by', 'theme' => $theme))
+    ->fields(array(
+      'region' => '-1',
+      'status' => 0,
+      'weight' => 0,
+      'visibility' => 0,
+      'pages' => '',
+      'cache' => -1,
+      'title' => '',
+      'css_class' => '',
+    ))
+    ->execute();
+
+  // Remove unused 'User Login' block
+  db_merge("block")
+    ->key(array('module' => 'user', 'delta' => 'login', 'theme' => $theme))
+    ->fields(array(
+      'region' => '-1',
+      'status' => 0,
+      'weight' => 0,
+      'visibility' => 0,
+      'pages' => '',
+      'cache' => -1,
+      'title' => '',
+      'css_class' => '',
+    ))
+    ->execute();
+
+  // Enable the Bynder integration where available.
+  module_enable(array('as_bynder'));
+
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function dfs_med_uninstall() {
+  // Disable custom theme on uninstall.
+  theme_disable(array('med'));
+  theme_enable(array('demonstratie_core'));
+  variable_set('theme_default', 'demonstratie_core');
+
+  // Reset site frontpage on uninstall.
+  variable_set('site_frontpage', 'node');
+}

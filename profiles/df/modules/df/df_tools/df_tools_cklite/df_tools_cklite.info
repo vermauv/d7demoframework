@@ -1,0 +1,14 @@
+name = DF Tools CKEditor Lite
+description = Integrates the lite track changes plugin for CKEditor with Drupal.
+package = User interface
+core = 7.x
+
+dependencies[] = editor_ckeditor
+dependencies[] = libraries
+
+; Information added by Drupal.org packaging script on 2016-02-29
+version = "7.x-1.17"
+core = "7.x"
+project = "df"
+datestamp = "1456776652"
+

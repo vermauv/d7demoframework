@@ -1,0 +1,41 @@
+name = DF Tools Hero
+description = Contains migration classes and entity/field definitions for a "Hero" FPP type
+core = 7.x
+package = Demo Framework Tools
+
+dependencies[] = ctools
+dependencies[] = df_tools_styles
+dependencies[] = features
+dependencies[] = fieldable_panels_panes
+dependencies[] = image
+dependencies[] = link
+dependencies[] = list
+dependencies[] = manualcrop
+dependencies[] = media
+dependencies[] = options
+dependencies[] = text
+
+scripts[] = js/df_tools_hero.js
+stylesheets[all][] = css/df_tools_hero.css
+
+features[ctools][] = fieldable_panels_panes:fieldable_panels_pane_type:1
+features[features_api][] = api:2
+features[field_base][] = field_hero_button_link
+features[field_base][] = field_hero_headline_1
+features[field_base][] = field_hero_headline_2
+features[field_base][] = field_hero_image
+features[field_instance][] = fieldable_panels_pane-hero-field_hero_button_link
+features[field_instance][] = fieldable_panels_pane-hero-field_hero_headline_1
+features[field_instance][] = fieldable_panels_pane-hero-field_hero_headline_2
+features[field_instance][] = fieldable_panels_pane-hero-field_hero_image
+features[fieldable_panels_pane_type][] = hero
+features[image][] = custom_crop
+
+files[] = df_tools_hero.fpp.hero.inc
+
+; Information added by Drupal.org packaging script on 2016-02-29
+version = "7.x-1.17"
+core = "7.x"
+project = "df"
+datestamp = "1456776652"
+

@@ -1,0 +1,81 @@
+body.in-maintenance #branding h1.page-title {
+  color: #fff;
+}
+
+body.in-maintenance #branding {
+  background-color: #222;
+}
+
+body.in-maintenance .form-radios div.form-type-radio.form-item-df-scenario {
+  border: 1px solid #ddd;
+  padding: 1em;
+  margin-bottom: 1em;
+  background-color: #fff;
+  float:left;
+  width:95%;
+}
+
+body.in-maintenance .form-item-df-scenario {
+  padding-top:30px;
+}
+
+body.in-maintenance #logo {
+  display: none;
+}
+
+body.in-maintenance fieldset {
+  border: none;
+  background-color: #eaeaea;
+}
+
+body.in-maintenance fieldset#edit-demo-framework {
+}
+
+body.in-maintenance #edit-demo-framework .description {
+  position: absolute;
+}
+
+body.in-maintenance  #edit-df-scenario div:first-child {
+  margin-top:40px;
+}
+
+body.in-maintenance fieldset#edit-demo-framework .fieldset-legend {
+  color: #29AAE1;
+  font-size: 2em;
+  padding-left:50px;
+  margin-top:.75em;
+}
+
+body.in-maintenance fieldset#edit-demo-framework .fieldset-legend:before {
+    width: 30px;
+    content: " ";
+    background-image: url(logo.png);
+    position: absolute;
+    left: 10px;
+    top: -10px;
+    height:35px;
+}
+
+body.in-maintenance .form-item-df-scenario label.option {
+  cursor: pointer;
+  padding-left:5px;
+}
+
+body.in-maintenance .form-item-df-scenario label.option:hover {
+}
+
+body.in-maintenance input[type="radio"]:checked+label {
+  font-weight: bold;
+}
+
+body.in-maintenance .scenario-description {
+  font-weight:normal;
+  max-width:240px;
+}
+
+
+.dfs-select {
+  width:45%;
+  float:right;
+  display:inline-block;
+}

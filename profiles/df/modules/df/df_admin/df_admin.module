@@ -1,0 +1,271 @@
+<?php
+/**
+ * @file
+ * Code for the DF Admin feature.
+ */
+
+include_once 'df_admin.features.inc';
+
+/**
+ * Implements hook_migrate_api().
+ */
+function df_admin_migrate_api() {
+  $api = array(
+    'api' => 2,
+    'groups' => array(
+      'df' => array(
+        'title' => t('Demo Framework'),
+      ),
+    ),
+  );
+  return $api;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function df_admin_menu() {
+  $items['admin/df'] = array(
+    'title' => 'Demo Framework',
+    'description' => 'Manage Demo Framework Scenarios and configurations.',
+    'page callback' => 'df_admin_page',
+    'page arguments' => array(),
+    'access arguments' => array('administer demo framework'),
+    'type' => MENU_NORMAL_ITEM,
+    'weight' => 50,
+    'file' => 'df_admin.page.inc',
+  );
+  $items['admin/df/enable/%'] = array(
+    'page callback' => 'df_admin_page_enable',
+    'page arguments' => array(3),
+    'access arguments' => array('administer demo framework'),
+    'type' => MENU_CALLBACK,
+    'file' => 'df_admin.enable.inc',
+  );
+  $items['admin/df/reset/%'] = array(
+    'page callback' => 'df_admin_page_reset',
+    'page arguments' => array(3),
+    'access arguments' => array('administer demo framework'),
+    'type' => MENU_CALLBACK,
+    'file' => 'df_admin.reset.inc',
+  );
+  $items['admin/df/uninstall'] = array(
+    'page callback' => 'df_admin_page_uninstall',
+    'page arguments' => array(),
+    'access arguments' => array('administer demo framework'),
+    'type' => MENU_CALLBACK,
+    'file' => 'df_admin.uninstall.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function df_admin_theme(){
+  return array(
+    'df_admin_page_template' => array(
+      'template' => 'df-admin-page',
+      'variables' => array('scenarios' => NULL),
+    ),
+  );
+}
+
+/**
+ * Alter navbar menu to clean things up a bit.
+ *
+ * Implements hook_navbar_alter().
+ */
+function df_admin_navbar_alter(&$items) {
+   foreach ($items['administration']['tray']['navbar_administration']['administration_menu'] as $mid => $item) {
+    // Change "My Workbench" to "Workbench" in the Navbar.
+    if (isset($item['#href']) && $item['#href'] == 'admin/workbench') {
+      $items['administration']['tray']['navbar_administration']['administration_menu'][$mid]['#title'] = 'Workbench';
+    }
+    // Change "Modules" to "Extend" to reflect D8 Toolbar.
+    if (isset($item['#href']) && $item['#href'] == 'admin/modules') {
+      $items['administration']['tray']['navbar_administration']['administration_menu'][$mid]['#title'] = 'Extend';
+    }
+    // Remove Help and Advanced Help from the Navbar.
+    $remove = array('admin/help', 'admin/advanced_help');
+    if (isset($item['#href']) && in_array($item['#href'], $remove)) {
+      unset($items['administration']['tray']['navbar_administration']['administration_menu'][$mid]);
+    }
+    // Shorten "Demo Framework" to "Demo" on the Navbar.
+    if(isset($item['#href']) && $item['#href'] == 'admin/df') {
+      $items['administration']['tray']['navbar_administration']['administration_menu'][$mid]['#title'] = 'Demo';
+    }
+  }
+}
+
+/**
+ * Alter advanced_help_topic_info.
+ *
+ * Advanced Help only displays topics for enabled modules. Add topics for any 
+ * disabled Scenarios.
+ */
+function df_admin_advanced_help_topic_info_alter(&$ini) {
+  global $language;
+
+  $modules = system_rebuild_module_data();
+  foreach ($modules as $index => $module) {
+    // Process only modules that are Scenarios and are not enabled.
+    if ($module->info['package'] != 'Demo Framework Scenarios') continue;
+    if ($module->status) continue;
+
+    // Functionality taken from _advanced_help_parse_ini().
+    $module_path = drupal_get_path('module', $module->name);
+    $info = array();
+    if (file_exists("$module_path/help/$module->name.help.ini")) {
+      $info = parse_ini_file("./$module_path/help/$module->name.help.ini", TRUE);
+
+      if (!empty($info)) {
+        // Get translated titles:
+        $translation = array();
+        if (file_exists("$module_path/translations/help/$language->language/$module->name.help.ini")) {
+          $translation = parse_ini_file("$module_path/translations/help/$language->language/$module->name.help.ini", TRUE);
+        }
+
+        $ini['settings'][$module->name] = array();
+        if (!empty($info['advanced help settings'])) {
+          $ini['settings'][$module->name] = $info['advanced help settings'];
+          unset($info['advanced help settings']);
+
+          // Check translated strings for translatable global settings.
+          if (isset($translation['advanced help settings']['name'])) {
+            $ini['settings']['name'] = $translation['advanced help settings']['name'];
+          }
+          if (isset($translation['advanced help settings']['index name'])) {
+            $ini['settings']['index name'] = $translation['advanced help settings']['index name'];
+          }
+        }
+
+        foreach ($info as $name => $topic) {
+          // Each topic should have a name, a title, a file and path.
+          $file = !empty($topic['file']) ? $topic['file'] : $name;
+          $ini['topics'][$module->name][$name] = array(
+            'name' => $name,
+            'module' => $module->name,
+            'ini' => $topic,
+            'title' => !empty($translation[$name]['title']) ? $translation[$name]['title'] : $topic['title'],
+            'weight' => isset($topic['weight']) ? $topic['weight'] : 0,
+            'parent' => isset($topic['parent']) ? $topic['parent'] : 0,
+            'popup width' => isset($topic['popup width']) ? $topic['popup width'] : 500,
+            'popup height' => isset($topic['popup height']) ? $topic['popup height'] : 500,
+            'file' => $file . '.html',
+            // Not in .ini file.
+            'path' => "$module_path/help",
+            'line break' => isset($topic['line break']) ? $topic['line break'] : (isset($ini['settings'][$module->name]['line break']) ? $ini['settings'][$module->name]['line break'] : FALSE),
+            'navigation' => isset($topic['navigation']) ? $topic['navigation'] : (isset($ini['settings'][$module->name]['navigation']) ? $ini['settings'][$module->name]['navigation'] : TRUE),
+            'css' => isset($topic['css']) ? $topic['css'] : (isset($ini['settings'][$module->name]['css']) ? $ini['settings'][$module->name]['css'] : NULL),
+            'readme file' => FALSE,
+          );
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Helper function to reset and revert all Features.
+ */
+function df_admin_revert_all() {
+  // Clear & rebuild Features key caches.
+  features_get_info(NULL, NULL, TRUE);
+  features_rebuild();
+
+  // Revert all Features (cleanup everything).
+  features_revert();
+}
+
+/**
+ * Helper function to return all DFS modules.
+ */
+function df_get_scenario_modules() {
+  $scenarios = array();
+  $modules = system_rebuild_module_data();
+  foreach ($modules as $name => $module) {
+    if ($module->info['package'] == 'Demo Framework Scenarios') {
+      $scenarios[$name] = $module;
+    }
+  }
+  return $scenarios;
+}
+
+/**
+ * Defines a library for the jquery-migrate plugin
+ */
+function df_admin_library() {
+  $libraries['jquery-migrate'] = array(
+    'title' => 'jQuery Migrate Plugin',
+    'website' => 'https://github.com/jquery/jquery-migrate',
+    'version' => '1.2.1',
+    'js' => array(
+      drupal_get_path('module', 'df_admin') . '/js/jquery-migrate-1.2.1.min.js' => array(),
+    ),
+  );
+  return $libraries;
+}
+
+/**
+ * Adds jQuery 1.9+ compatibility by adding $.browser and other components back
+ */
+function df_admin_page_alter(&$page) {
+  drupal_add_library('df_admin', 'jquery-migrate', TRUE);
+}
+
+/**
+ * Batch API finished callback - report results
+ *
+ * @param $success
+ *  Ignored
+ * @param $results
+ *  List of results from batch processing
+ * @param $operations
+ *  Ignored
+ */
+function df_admin_batch_finish($success, $results, $operations) {
+  unset($results['stopped']);
+  if (user_access(MIGRATE_ACCESS_ADVANCED)) {
+    foreach ($results as $result) {
+      drupal_set_message($result['message']);
+    }
+  }
+}
+
+/**
+ * BatchAPI callback.
+ *
+ * Logs a message with the watchdog once features have been reverted after
+ * enabling a scenario.
+ *
+ * @see df_admin_reset_scenario()
+ */
+function _df_admin_watchdog_revert_features($scenario, &$context) {
+  watchdog('df_admin', 'Features reverted after enabling the %scenario scenario.', array('%scenario' => $scenario), WATCHDOG_INFO);
+}
+
+/**
+ * BatchAPI callback.
+ *
+ * Logs a message with the watchdog once defaultconfig has been rebuilt after
+ * enabling a scenario.
+ *
+ * @see df_admin_reset_scenario()
+ */
+function _df_admin_watchdog_defaultconfig_rebuild($scenario, &$context) {
+  watchdog('df_admin', 'Rebuilt defaultconfig after enabling the %scenario scenario.', array('%scenario' => $scenario), WATCHDOG_INFO);
+}
+
+/**
+ * BatchAPI callback.
+ *
+ * Logs a message with the watchdog once caches have been cleared after enabling
+ * a scenario.
+ *
+ * @see df_admin_reset_scenario()
+ */
+function _df_admin_watchdog_cache_clear($scenario, &$context) {
+  watchdog('df_admin', 'Cleared caches after enabling the %scenario scenario.', array('%scenario' => $scenario), WATCHDOG_INFO);
+}

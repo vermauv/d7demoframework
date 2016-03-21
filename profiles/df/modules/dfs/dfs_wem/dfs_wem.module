@@ -1,0 +1,84 @@
+<?php
+/**
+ * @file
+ * Code for the DFS_WEM feature.
+ */
+
+include_once 'dfs_wem.features.inc';
+
+/**
+ * Implements hook_migrate_api().
+ */
+function dfs_wem_migrate_api() {
+  $import_path = drupal_get_path('module', 'dfs_wem') . '/import/';
+  $api = array(
+    'api' => 2,
+    'groups' => array(
+      'dfs_wem' => array(
+        'title' => t('DFS WEM'),
+      ),
+    ),
+    'migrations' => array(
+      'DFSWEMGroupsWEMContestUsers' => array('class_name' => 'DFSWEMGroupsWEMContestUsers', 'group_name' => 'dfs_wem'),
+      'DFSWEMContestNodes' => array('class_name' => 'DFSWEMContestNodes', 'group_name' => 'dfs_wem'),
+      'DFSWEMContestNodesTranslations' => array('class_name' => 'DFSWEMContestNodesTranslations', 'group_name' => 'dfs_wem'),
+      'DFSWEMCommerceNodes' => array('class_name' => 'DFSWEMCommerceNodes', 'group_name' => 'dfs_wem'),
+      'DFSWEMCommerceNodesTranslations' => array('class_name' => 'DFSWEMCommerceNodesTranslations', 'group_name' => 'dfs_wem'),
+      'DFSWEMInterestsTerms' => array('class_name' => 'DFSWEMInterestsTerms', 'group_name' => 'dfs_wem'),
+      'DFSWEMNewsNodes' => array('class_name' => 'DFSWEMNewsNodes', 'group_name' => 'dfs_wem'),
+      'DFSWEMNewsNodesTranslations' => array('class_name' => 'DFSWEMNewsNodesTranslations', 'group_name' => 'dfs_wem'),
+      'DFSWEMNewsVideo' => array('class_name' => 'DFSWEMNewsVideo', 'group_name' => 'dfs_wem'),
+      'DFSWEMPersonaTerms' => array('class_name' => 'DFSWEMPersonaTerms', 'group_name' => 'dfs_wem'),
+      'DFSWEMProducts' => array('class_name' => 'DFSWEMProducts', 'group_name' => 'dfs_wem'),
+      'DFSWEMProductReviewNodes' => array('class_name' => 'DFSWEMProductReviewNodes', 'group_name' => 'dfs_wem'),
+      'DFSWEMTweetNodes' => array('class_name' => 'DFSWEMTweetNodes', 'group_name' => 'dfs_wem'),
+      'DFSWEMUserPictures' => array('class_name' => 'DFUserPictures', 'path' => $import_path . 'dfs_wem.users.csv', 'group_name' => 'dfs_wem'),
+      'DFSWEMUsers' => array('class_name' => 'DFUsers', 'path' => $import_path . 'dfs_wem.users.csv', 'picture_source' => 'DFSWEMUserPictures', 'group_name' => 'dfs_wem'),
+    ),
+  );
+  return $api;
+}
+
+/**
+ * Implements hook_df_import_alter().
+ */
+function dfs_wem_df_import_alter(&$migrations) {
+  return $migrations['dfs_wem'] = array(
+    'DFSWEMInterestsTerms',
+    'DFSWEMPersonaTerms',
+    'DemoFrameworkSiteSectionTerms',
+    'DFSWEMUserPictures',
+    'DFSWEMProducts',
+    'DFSWEMCommerceNodes',
+    'DFSWEMCommerceNodesTranslations',
+    'DFSWEMUsers',
+    'DFSWEMProductReviewNodes',
+    'DFSWEMContestNodes',
+    'DFSWEMContestNodesTranslations',
+    'DFSWEMGroupsWEMContestUsers',
+    'DFSWEMNewsVideo',
+    'DFSWEMNewsNodes',
+    'DFSWEMNewsNodesTranslations',
+    'DFSWEMTweetNodes',
+  );
+}
+
+/**
+ *  Implements hook_post_features_enable_feature().
+ */
+function dfs_wem_post_features_enable_feature($component) {
+  if ($component == 'features_api') {
+    migrate_get_module_apis();
+  }
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ */
+function dfs_wem_entity_info_alter(&$entity_info) {
+  $entity_info['node']['view modes']['redirect'] = array(
+    'label' => t('Redirect'),
+    'custom settings' => TRUE,
+  );
+}
+

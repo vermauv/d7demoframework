@@ -1,0 +1,28 @@
+name = DF Tools Commerce Product
+description = A FPP widget for adding a new Commerce Product to a pane.
+core = 7.x
+package = Demo Framework Tools
+
+dependencies[] = commerce
+dependencies[] = ctools
+dependencies[] = df_commerce
+dependencies[] = entityreference
+dependencies[] = features
+dependencies[] = fieldable_panels_panes
+dependencies[] = inline_entity_form
+dependencies[] = lightning_fpp
+
+features[ctools][] = fieldable_panels_panes:fieldable_panels_pane_type:1
+features[features_api][] = api:2
+features[field_base][] = field_commerce_product_reference
+features[field_instance][] = fieldable_panels_pane-commerce_product-field_commerce_product_reference
+features[fieldable_panels_pane_type][] = commerce_product
+
+files[] = df_tools_commerce_product.fpp.commerce_product.inc
+
+; Information added by Drupal.org packaging script on 2016-02-29
+version = "7.x-1.17"
+core = "7.x"
+project = "df"
+datestamp = "1456776652"
+

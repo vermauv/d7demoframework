@@ -1,0 +1,69 @@
+// Non-modular or client styles for .l-.header-wrap region.
+
+#nav-icon {
+  width: 40px;
+  height: 15px;
+  display: block;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  @include transform(rotate(0deg));
+  -webkit-transition: .5s ease-in-out;
+  -moz-transition: .5s ease-in-out;
+  -o-transition: .5s ease-in-out;
+  transition: .5s ease-in-out;
+  cursor: pointer;
+  display: block;
+   span {
+	display: block;
+	position: absolute;
+	height: 5px;
+	width: 100%;
+	background: #fff;
+	border-radius: 9px;
+	opacity: 1;
+	left: 0;
+	 @include transform(rotate(0deg));
+ 	-webkit-transition: .25s ease-in-out;
+	-moz-transition: .25s ease-in-out;
+	-o-transition: .25s ease-in-out;
+	transition: .25s ease-in-out;
+	
+		&:nth-child(1) {
+		  top: 0px;
+		  @include transform-origin(left center);
+		}
+
+		&:nth-child(2) {
+		  top: 15px;
+		  @include transform-origin(left center);
+		}
+
+		&:nth-child(3) {
+		  top: 30px;
+		  @include transform-origin(left center);
+		}
+
+	}
+
+@media #{$medium-up} {
+	display:none;
+}
+}
+
+.mm-opening #nav-icon span:nth-child(1) {
+  @include transform(rotate(45deg));
+  top: -2px;
+  left: 8px;
+}
+
+.mm-opening #nav-icon span:nth-child(2) {
+  width: 0%;
+  opacity: 0;
+}
+
+.mm-opening #nav-icon span:nth-child(3) {
+   @include transform(rotate(-45deg));
+  top: 27px;
+  left: 7px;
+}

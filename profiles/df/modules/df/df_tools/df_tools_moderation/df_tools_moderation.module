@@ -1,0 +1,65 @@
+<?php
+/**
+ * @file
+ * Defines routines for the DF Tools Moderation module.
+ */
+
+/**
+ * Implements hook_mail_alter().
+ *
+ * Adds a simple hotfix for Sendgrid + Mimemail to make sure emails are sent as HTML
+ */
+function df_tools_moderation_mail_alter(&$message) {
+  if ($message['id'] == 'mimemail_df_review_needed') {
+    $message['headers']['Content-Type'] = str_replace('text/plain', 'text/html', $message['headers']['Content-Type']);
+  }
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function df_tools_moderation_menu_alter(&$items) {
+  // Use a custom node page callback for automatically publishing new drafts.
+  // Inherit defaults from the existing menu item.
+  $items['node/%node/newdraft'] = $items['node/%node/edit'];
+  $items['node/%node/newdraft']['page callback'] = 'df_tools_moderation_node_newdraft';
+}
+
+/**
+ * Implements hook_preprocess_page().
+ *
+ * Changes the target of the "New draft" tab to our custom menu callback.
+ */
+function df_tools_moderation_preprocess_page(&$variables) {
+  if (!empty($variables['tabs']) && !empty($variables['tabs']['#primary'])) {
+    foreach ($variables['tabs']['#primary'] as &$tab) {
+      if (isset($tab['#link']) && $tab['#link']['title'] == 'New draft') {
+        $tab['#link']['href'] = str_replace('/edit', '/newdraft', $tab['#link']['href']);
+        $tab['#link']['path'] = str_replace('/edit', '/newdraft', $tab['#link']['path']);
+      }
+    }
+  }
+}
+
+/**
+ * Defines the node/%/newdraft page to automatically publish new drafts.
+ *
+ * @param Object $node The node being acted upon.
+ * @return array The return of workbench_moderation_node_edit_page_override, or exits/redirects to node/%/draft
+ */
+function df_tools_moderation_node_newdraft($node) {
+  // If this node is moderated and has no draft, automatically create a new draft and redirect.
+  $state = $node->workbench_moderation;
+  // This is the same logic used to determine is "New Draft" should be displayed (see workbench_moderation_edit_tab_title())
+  if (!empty($state['published']) && $state['published']->vid == $state['current']->vid) {
+    // Mark the node as needing a new revision from Drupal, and change the workbench moderation state to draft.
+    $node->revision = 1;
+    $node->workbench_moderation_state_new = 'draft';
+    node_save($node);
+    drupal_goto('/node/' . $node->nid . '/draft');
+  }
+  // Return the standard workbench node edit form.
+  else {
+    return workbench_moderation_node_edit_page_override($node);
+  }
+}

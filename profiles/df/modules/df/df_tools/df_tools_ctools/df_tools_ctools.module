@@ -1,0 +1,94 @@
+<?php
+/**
+ * @file
+ * Code for the df_tools_ctools module.
+ */
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function df_tools_ctools_form_ctools_node_content_type_edit_form_alter(&$form, &$form_state, $form_id) {
+  $form['identifier']['#access'] = FALSE;
+  $form['build_mode']['#title'] = 'View mode';
+  $white_list = array('full', 'teaser', 'featured');
+  foreach ($form['build_mode']['#options'] as $view_mode => $name) {
+    if (!in_array($view_mode, $white_list)) {
+      unset($form['build_mode']['#options'][$view_mode]);
+    }
+  }
+  $form['build_mode']['#default_value'] = 'featured';
+}
+
+/**
+ * Implements hook_ctools_plugin_pre_alter().
+ */
+function df_tools_ctools_ctools_plugin_pre_alter(&$plugin, &$info) {
+  if ($plugin['name'] == 'node' && $info['module'] == 'ctools' && $info['type'] == 'content_types') {
+    $plugin['title'] = 'Existing content';
+  }
+}
+
+/**
+ * Implements hook_ctools_plugin_post_alter().
+ *
+ * Changes the render callback for the ctools node_title plugin so we can in-place edit it.
+ */
+function df_tools_ctools_ctools_plugin_post_alter(&$plugin, &$info) {
+  if ($plugin['name'] == 'node_title') {
+    $plugin['render callback'] = 'df_tools_ctools_node_title_content_type_render';
+  }
+}
+
+/**
+ * Render the custom content type.
+ *
+ * This is identical to ctools_node_title_content_type_render, except it adds a quickedit wrapper.
+ */
+function df_tools_ctools_node_title_content_type_render($subtype, $conf, $panel_args, $context) {
+  if (empty($context) || empty($context->data)) {
+    return;
+  }
+
+  // Get a shortcut to the node.
+  $node = $context->data;
+
+  // Determine the node's language
+  $language = !empty($node->language) ? $node->language : LANGUAGE_NONE;
+
+  // Load information about the node type.
+  $type = node_type_get_type($node);
+
+  // Wrap the title in a quickedit wrapper
+  $field_id = "node/$node->nid/title/$language/full/ctools_node_title_content_type";
+
+  // Generate the title
+  // This is the only block of code that differs from ctools_node_title_content_type_render
+  if (!empty($conf['link'])) {
+    $content = l($node->title, 'node/' . $node->nid, array('attributes' => array('data-quickedit-field-id' => $field_id)));
+  }
+  else {
+    $content = "<div data-quickedit-field-id=\"$field_id\">" . check_plain($node->title) . '</div>';
+  }
+
+  // Build any surrounding markup if so configured
+  if (isset($conf['markup']) && $conf['markup'] != 'none') {
+    $markup = '<' . $conf['markup'];
+    if (!empty($conf['id'])) {
+      $markup .= ' id="' . $conf['id'] . '"';
+    }
+    if (!empty($conf['class'])) {
+      $markup .= ' class="' . $conf['class'] . '"';
+    }
+    $markup .= '>' . $content . '</' . $conf['markup'] . '>' . "\n";
+    $content = $markup;
+  }
+
+  // Build the content type block.
+  $block = new stdClass();
+  $block->module  = 'node_title';
+  $block->title   = $type->title_label;
+  $block->content = $content;
+  $block->delta   = $node->nid;
+
+  return $block;
+}

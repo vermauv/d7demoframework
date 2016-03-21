@@ -1,0 +1,7 @@
+.advanced-help-topic { word-break: normal; }
+.summary { background: #efefef; padding: 1em; }
+.summary dt { clear: both; float: left; width: 200px; }
+.summary dd { margin-left: 220px; padding-bottom: 1em; }
+.summary ul { margin: 0; padding-left: 1em; }
+
+.steps blockquote { color: #a2320a; margin: 0; }

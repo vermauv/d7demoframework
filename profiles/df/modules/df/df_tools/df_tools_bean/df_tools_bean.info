@@ -1,0 +1,28 @@
+name = DF Tools Bean
+description = Reusable Bean plugins used by scenarios.
+core = 7.x
+package = Demo Framework Tools
+
+dependencies[] = bean
+dependencies[] = bean_admin_ui
+dependencies[] = bean_uuid
+dependencies[] = ctools
+dependencies[] = entity
+dependencies[] = entityreference
+dependencies[] = entityreference_prepopulate
+dependencies[] = features
+dependencies[] = field_ui
+dependencies[] = text
+
+features[features_api][] = api:2
+features[field_base][] = field_content_reference
+features[field_base][] = field_wysiwyg
+features[field_instance][] = bean-df_bean_personalized_content-field_content_reference
+features[field_instance][] = bean-df_bean_wysiwyg_content-field_wysiwyg
+
+; Information added by Drupal.org packaging script on 2016-02-29
+version = "7.x-1.17"
+core = "7.x"
+project = "df"
+datestamp = "1456776652"
+

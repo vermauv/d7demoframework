@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @file
+ * Installation routines for dfs_wem_commerce feature
+ */
+
+/**
+ * Implements hook_install().
+ */
+function dfs_wem_commerce_install() {
+  // Enable the shopping cart block.
+  $blocks = array(
+    array(
+      'module' => 'commerce_cart',
+      'delta' => 'cart',
+      'theme' => 'demonstratie_lce',
+      'status' => 1,
+      'weight' => 0,
+      'region' => 'header_second',
+      'pages' => '',
+      'title' => '',
+      'cache' => -1,
+    ),
+  );
+  $query = db_merge('block')
+    ->key(array('module' => 'commerce_cart', 'delta' => 'cart', 'theme' => 'demonstratie_lce'));
+
+  foreach ($blocks as $block) {
+    $query->fields($block);
+  }
+  $query->execute();
+}

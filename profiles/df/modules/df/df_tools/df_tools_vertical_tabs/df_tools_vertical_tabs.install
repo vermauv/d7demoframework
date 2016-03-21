@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the df_tools_vertical_tabs module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function df_tools_vertical_tabs_uninstall() {
+  // Remove variables.
+  variable_del('df_tools_vertical_tabs_vertical_tabs_toggle');
+}

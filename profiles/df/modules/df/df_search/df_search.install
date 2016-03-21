@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Installation routines for DF_Search feature
+ */
+
+/**
+ * Implements hook_install().
+ */
+function df_search_install() {
+}
+

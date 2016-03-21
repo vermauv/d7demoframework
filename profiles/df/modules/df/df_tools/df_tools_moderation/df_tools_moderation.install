@@ -1,0 +1,12 @@
+<?php
+/**
+ * @file
+ * Contains installation routines for the df_tools_moderation module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function df_tools_moderation_install() {
+  variable_set('mimemail_format', 'full_html');
+}

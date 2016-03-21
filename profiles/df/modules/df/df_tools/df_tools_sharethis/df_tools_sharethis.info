@@ -1,0 +1,29 @@
+name = DF Tools Sharethis
+description = Integrate with third-party social networks.
+core = 7.x
+package = Demo Framework Tools
+
+dependencies[] = ctools
+dependencies[] = features
+dependencies[] = sharethis
+dependencies[] = strongarm
+dependencies[] = text
+
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:2
+features[variable][] = sharethis_button_option
+features[variable][] = sharethis_comments
+features[variable][] = sharethis_late_load
+features[variable][] = sharethis_location
+features[variable][] = sharethis_option_extras
+features[variable][] = sharethis_service_option
+features[variable][] = sharethis_teaser_option
+features[variable][] = sharethis_weight
+features[variable][] = sharethis_widget_option
+
+; Information added by Drupal.org packaging script on 2016-02-29
+version = "7.x-1.17"
+core = "7.x"
+project = "df"
+datestamp = "1456776652"
+

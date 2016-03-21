@@ -1,0 +1,29 @@
+// Non-modular or client styles for the .l-content region.
+
+
+$row-width: rem-calc(1200);
+$main-row: rem-calc(980);
+
+.row {max-width:$row-width;}
+
+.demonstratie-layout-split-features, .demonstratie-layout-single .tertiary-features-region {
+	@media #{$large-up} {padding-left:0px; padding-right:0px; margin:0 auto;}
+
+	padding-left:10px;
+	padding-right:10px;
+	max-width:$main-row;
+	margin:0 auto;
+	float:none;
+}
+
+
+.section-collection .panels-ipe-display-container{
+	@media #{$large-up} {padding-left:0px; padding-right:0px; margin:0 auto;}
+
+	padding-left:10px;
+	padding-right:10px;
+	max-width:$row-width;
+	margin:0 auto;
+	float:none;
+}
+

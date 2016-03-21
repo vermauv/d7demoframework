@@ -1,0 +1,191 @@
+<?php
+/**
+ * @file
+ * Code for the DF Commerce feature.
+ */
+
+include_once 'df_commerce.features.inc';
+
+/**
+ * Implements hook_df_pre_import().
+ */
+function df_commerce_df_pre_import() {
+  // Set up pre-import routines.
+  $routines = array();
+
+  // Clean up Commerce Orders.
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'commerce_order');
+  $result = $query->execute();
+  if (isset($result['commerce_order'])) {
+    $items = array_keys($result['commerce_order']);
+    $routines[] = array('commerce_order_delete_multiple', array($items));
+  }
+
+  // Clean up Customer Profiles.
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'commerce_customer_profile');
+  $result = $query->execute();
+  if (isset($result['commerce_customer_profile'])) {
+    $items = array_keys($result['commerce_customer_profile']);
+    $routines[] = array('commerce_customer_profile_delete_multiple', array($items));
+  }
+  return $routines;
+}
+
+/**
+ * Implements hook_migrate_api().
+ */
+function df_commerce_migrate_api() {
+  $api = array(
+    'api' => 2,
+    'migrations' => array(
+      'DemoFrameworkBaseProducts' => array('class_name' => 'DemoFrameworkBaseProducts'),
+      'DemoFrameworkBaseCommerceNodes' => array('class_name' => 'DemoFrameworkBaseCommerceNodes'),
+    ),
+  );
+  return $api;
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function df_commerce_entity_insert($entity, $type) {
+  if ($type == 'user' && isset($entity->migrate) && variable_get('df_commerce_add_sample_addresses', FALSE)) {
+    // Create a billing customer profile.
+    $billing_profile = commerce_customer_profile_new('billing', $entity->uid);
+    $billing_profile->commerce_customer_address[LANGUAGE_NONE][0]['name_line'] = 'Sample Customer';
+    $billing_profile->commerce_customer_address[LANGUAGE_NONE][0]['country'] = 'US';
+    $billing_profile->commerce_customer_address[LANGUAGE_NONE][0]['thoroughfare'] = '25 Corporate Drive, 4th Floor';
+    $billing_profile->commerce_customer_address[LANGUAGE_NONE][0]['locality'] = 'Burlington';
+    $billing_profile->commerce_customer_address[LANGUAGE_NONE][0]['administrative_area'] = 'MA';
+    $billing_profile->commerce_customer_address[LANGUAGE_NONE][0]['postal_code'] = '01803';
+    commerce_customer_profile_save($billing_profile);
+    commerce_addressbook_set_default_profile($billing_profile);
+
+    // Create a shipping customer profile.
+    $shipping_profile = commerce_customer_profile_new('shipping', $entity->uid);
+    $shipping_profile->commerce_customer_address[LANGUAGE_NONE][0]['name_line'] = 'Sample Customer';
+    $shipping_profile->commerce_customer_address[LANGUAGE_NONE][0]['country'] = 'US';
+    $shipping_profile->commerce_customer_address[LANGUAGE_NONE][0]['thoroughfare'] = '222 NW 5th Ave, Suite 300';
+    $shipping_profile->commerce_customer_address[LANGUAGE_NONE][0]['locality'] = 'Portland';
+    $shipping_profile->commerce_customer_address[LANGUAGE_NONE][0]['administrative_area'] = 'OR';
+    $shipping_profile->commerce_customer_address[LANGUAGE_NONE][0]['postal_code'] = '97209';
+    commerce_customer_profile_save($shipping_profile);
+    commerce_addressbook_set_default_profile($shipping_profile);
+
+    // Create sample orders for the user.
+    if (variable_get('df_commerce_add_sample_orders', FALSE)) {
+      _df_commerce_create_order($entity->uid, 1, TRUE);
+      _df_commerce_create_order($entity->uid, 2, FALSE);
+    }
+  }
+}
+
+/*
+ * Helper function to create a sample order.
+ *
+ * @param $uid
+ * @param $items_number
+ * @param $order_state
+ */
+function _df_commerce_create_order($uid, $items_number, $is_cart = FALSE) {
+  // Create order as a cart.
+  $order = commerce_order_new($uid, 'cart');
+  commerce_order_save($order);
+
+  $message = message_create('commerce_order_created', array('uid' => $uid));
+  $wrapper = entity_metadata_wrapper('message', $message);
+  $wrapper->message_commerce_order->set($order);
+  $wrapper->save();
+
+  // Add products to the cart.
+  $line_items = array();
+  $products = entity_load('commerce_product');
+  $products_key = array_keys($products);
+  $products_number = count($products_key);
+  $count = $products_number < $items_number ? $products_number: $items_number;
+  for($i = 0; $i < $count; $i++) {
+    $product = $products[$products_key[rand(0, $products_number - 1)]];
+    $line_item = commerce_product_line_item_new($product, 1, $order->order_id);
+    commerce_line_item_save($line_item);
+    $line_items[] = array('line_item_id' => $line_item->line_item_id);
+
+    $message = message_create('commerce_order_cart_add', array('uid' => $uid));
+    $wrapper = entity_metadata_wrapper('message', $message);
+    $wrapper->message_commerce_order->set($order);
+    $wrapper->message_commerce_line_item->set($line_item);
+    $wrapper->save();
+  }
+  $order->commerce_line_items[LANGUAGE_NONE] = $line_items;
+
+  // Stop here for cart creation.
+  if ($is_cart) {
+    commerce_order_save($order);
+    return;
+  }
+
+  // Attach customer profile.
+  _df_commerce_update_order_status($order, 'checkout_checkout');
+  $billing_profile_id = commerce_addressbook_get_default_profile_id($uid, 'billing');
+  $shippin_profile_id = commerce_addressbook_get_default_profile_id($uid, 'shipping');
+  if (!empty($billing_profile_id)) {
+    $order->commerce_customer_billing[LANGUAGE_NONE][0]['profile_id'] = $billing_profile_id;
+  }
+  if (!empty($shippin_profile_id)) {
+    $order->commerce_customer_shipping[LANGUAGE_NONE][0]['profile_id'] = $shippin_profile_id;
+  }
+
+  _df_commerce_update_order_status($order, 'checkout_shipping');
+
+  // Proceed to payment.
+  _df_commerce_update_order_status($order, 'checkout_review');
+  $order->data['payment_method'] = 'commerce_payment_example|commerce_payment_commerce_payment_example';
+  $order->data['commerce_payment_example'] = array(
+    'credit_card' => array(
+      'number' => '4111111111111111',
+      'exp_month' => '06',
+      'exp_year' => '2012',
+
+    ),
+  );
+  commerce_order_save($order);
+  $rule = rules_config_load('commerce_payment_commerce_payment_example');
+  $payment_method = commerce_payment_method_load('commerce_payment_example');
+  $method_instance_id = commerce_payment_method_instance_id('commerce_payment_example', $rule);
+  $method_instance = commerce_payment_method_instance_load($method_instance_id);
+  $transaction = commerce_payment_example_transaction($method_instance, $order, $order->commerce_order_total[LANGUAGE_NONE][0], '');
+
+  $message = message_create('commerce_order_payment_entered', array('uid' => $uid));
+  $wrapper = entity_metadata_wrapper('message', $message);
+  $wrapper->message_commerce_order->set($order);
+  $wrapper->message_commerce_payment->set($transaction);
+  $wrapper->save();
+
+  _df_commerce_update_order_status($order, 'checkout_payment');
+  _df_commerce_update_order_status($order, 'checkout_complete');
+  _df_commerce_update_order_status($order, 'pending');
+}
+
+/**
+ * Helper function to update the order status and set the message.
+ *
+ * @param $order
+ * @param $status
+ */
+function _df_commerce_update_order_status($order, $status) {
+  // We need to harcode the previous state, as the entity will not
+  // have this value on run-time.
+  $statuses = commerce_order_statuses();
+  $arguments = array(
+    '@order_status_previous' => $statuses[$order->status]['title'],
+    '@order_status' => $statuses[$status]['title'],
+  );
+  $order = commerce_order_status_update($order, $status);
+
+  $message = message_create('commerce_order_state', array('uid' => $order->uid, 'arguments' => $arguments));
+  $wrapper = entity_metadata_wrapper('message', $message);
+  $wrapper->message_commerce_order->set($order);
+  $wrapper->save();
+}
+

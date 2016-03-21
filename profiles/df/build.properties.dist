@@ -1,0 +1,9 @@
+drush.makefile=build-df.make
+drupal.profile=df
+db.url=mysql://username:password@host/db
+site.name=Demo Framework
+site.mail=test@example.com
+account.name=admin
+account.pass=admin
+account.mail=test@example.com
+sites.subdir=df.localhost

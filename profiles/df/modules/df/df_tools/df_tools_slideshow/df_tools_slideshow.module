@@ -1,0 +1,173 @@
+<?php
+/**
+ * @file
+ * Code for the DF Tools Slideshow feature.
+ */
+
+include_once 'df_tools_slideshow.features.inc';
+
+/**
+ * Implements hook_migrate_api
+ */
+function df_tools_slideshow_migrate_api() {
+  $api = array(
+    'api' => 2,
+    'migrations' => array(
+      'DFSlideshowFPP' => array('class_name' => 'DFSlideshowFPP', 'group_name' => 'df'),
+    ),
+  );
+  return $api;
+}
+
+/**
+ * Implements hook_preprocess_HOOK.
+ */
+function df_tools_slideshow_preprocess_fieldable_panels_pane(&$vars) {
+  // If this FPP is a Slideshow, modify its default output
+  // Display settings for fields should stay intact when rendering the slideshow
+  if ($vars['elements']['#bundle'] == 'slideshow') {
+    // Assemble the slideshow slides
+    $items = array();
+    // At the very least a slide must contain a media item
+    foreach ($vars['field_media'] as $i=>$media) {
+      $item = array();
+      $item[] = df_tools_slideshow_render_single_field($vars['content']['field_media'], $i);
+      // Optionally, a line of text/body text can be added to a slide
+      if (isset($vars['content']['field_title'][$i])) {
+        $item[] = df_tools_slideshow_render_single_field($vars['content']['field_title'], $i);
+      }
+      if (isset($vars['content']['field_body'][$i])) {
+        $item[] = df_tools_slideshow_render_single_field($vars['content']['field_body'], $i);
+      }
+      $items[] = $item;
+    }
+
+    // Define Slick default options
+    $options = array(
+      'autoplay' => TRUE,
+      'dots' => TRUE,
+      'arrows' => TRUE,
+    );
+
+    // Grab optional settings from the FPP
+    if (isset($vars['elements']['#fieldable_panels_pane']->field_settings[LANGUAGE_NONE])) {
+      $field_settings = $vars['elements']['#fieldable_panels_pane']->field_settings[LANGUAGE_NONE];
+      if (count($field_settings) > 0) {
+        foreach ($field_settings as $setting) {
+          // Grab the key/value pair from the text field
+          list($key, $value) = explode(': ', $setting['value']);
+          if (!empty($key) && !empty($value)) {
+            $options[$key] = $value;
+          }
+        }
+      }
+    }
+
+    $vars['content'] = slick_build($items, $options);
+  }
+}
+
+/**
+ * Takes a multi-value render array and returns an array with only one item.
+ *
+ * @param array $render The original render array
+ * @param int $index The numerical index of the value you're rendering
+ * @return array The new render array
+ */
+function df_tools_slideshow_render_single_field($render, $index) {
+  // Remove each item that isn't in the index
+  foreach ($render['#items'] as $i=>$item) {
+    if ($i != $index) {
+      unset($render['#items'][$i]);
+      unset($render[$i]);
+    }
+  }
+  // Return the copy of the original render array
+  return $render;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter.
+ */
+function df_tools_slideshow_form_fieldable_panels_panes_entity_edit_form_alter(&$form, &$form_state, $form_id) {
+  if ($form['#bundle'] == 'slideshow') {
+    // Add a unique class to the form so we can apply custom css
+    $form['#attributes']['class'][] = 'df-tools-slideshow-admin';
+
+    // Add a useful link to view Slick settings
+    $form['field_settings'][LANGUAGE_NONE]['#title'] .= ' - <a href="http://kenwheeler.github.io/slick/#settings" target="_blank">View Options</a>';
+    // Add helper text for how input should be handled
+    $markup = array(
+      '#markup' => '<label for="settings_example">Example setting: </label><input name="settings_example" type="text" value="accessibility: true" size="60" disabled>',
+    );
+    // We want this information above existing fields
+    array_unshift($form['field_settings'][LANGUAGE_NONE], $markup);
+
+    // Add an after hook to remove formatting tips and change preview image styles
+    $form['#after_build'][] = 'df_tools_slideshow_form_after_build';
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter.
+ */
+function df_tools_slideshow_form_fieldable_panels_panes_fieldable_panels_pane_content_type_edit_form_alter(&$form, &$form_state, $form_id) {
+  df_tools_slideshow_form_fieldable_panels_panes_entity_edit_form_alter($form, $form_state, $form_id);
+}
+
+/**
+ * Implements hook_lightning_fpp_types().
+ */
+function df_tools_slideshow_lightning_fpp_types_alter(&$types) {
+  $icon_path = drupal_get_path('module', 'df_tools_slideshow') . '/images/';
+  $types['slideshow'] = array(
+    'title' => 'slideshow',
+    'icon' => $icon_path . 'icon_slideshow.png',
+    'path' => 'slideshow',
+  );
+}
+
+/**
+ * Removes the format tips below multi-format fields
+ */
+function df_tools_slideshow_form_after_build($form) {
+  // Make the previews for media images larger than the default media_thumbnail
+  for ($i=0; $i<=max(array_keys($form['field_media'][LANGUAGE_NONE])); ++$i) {
+    // The slick image style is provided by the slick module, and formats images to match hero proportions
+    // We do not currently use this image style as the default for the slideshow fpp
+    $form['field_media'][LANGUAGE_NONE][$i]['preview']['content']['#image_style'] = 'slick';
+  }
+  // Remove the formatting tips for the text fields
+  for ($i=0; $i<=max(array_keys($form['field_body'][LANGUAGE_NONE])); ++$i) {
+    unset($form['field_body'][LANGUAGE_NONE][$i]['format']['help']);
+    unset($form['field_body'][LANGUAGE_NONE][$i]['format']['guidelines']);
+  }
+  for ($i=0; $i<=max(array_keys($form['field_title'][LANGUAGE_NONE])); ++$i) {
+    unset($form['field_title'][LANGUAGE_NONE][$i]['format']['help']);
+    unset($form['field_title'][LANGUAGE_NONE][$i]['format']['guidelines']);
+  }
+  return $form;
+}
+
+/**
+ * Implements hook_image_default_styles().
+ */
+function df_tools_slideshow_image_default_styles() {
+  $styles = array();
+
+  // Default image preset for Slick carousel.
+  $styles['slick'] = array(
+    'effects' => array(
+      array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 1380,
+          'height' => 420,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  return $styles;
+}

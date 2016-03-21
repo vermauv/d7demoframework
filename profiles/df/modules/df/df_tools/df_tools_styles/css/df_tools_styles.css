@@ -1,0 +1,84 @@
+/**
+ * @file
+ *  Contains basic styles for classy panels
+ */
+
+.classy-panel-styles.text-align-left {
+    text-align: left;
+}
+
+.classy-panel-styles.text-align-center {
+    text-align: center;
+}
+
+.classy-panel-styles.text-align-right {
+    text-align: right;
+}
+
+.classy-panel-styles.hide-pane-title .pane-title {
+    display: none;
+}
+
+.classy-panel-styles.pane-width-25 {
+    width: 25%;
+}
+.classy-panel-styles.pane-width-50 {
+    width: 50%;
+}
+.classy-panel-styles.pane-width-75 {
+    width: 75%;
+}
+.classy-panel-styles.pane-width-100 {
+    width: 100%;
+}
+
+.classy-panel-styles.pane-background-white {
+    background-color: white;
+}
+
+.classy-panel-styles.pane-background-black {
+    background-color: black;
+}
+
+.classy-panel-styles.pane-background-lightgray {
+    background-color: lightgray;
+}
+
+.classy-panel-styles.pane-align-center {
+    margin: 0 auto;
+}
+
+.classy-panel-styles.pane-align-right {
+    float: left;
+}
+
+.classy-panel-styles.pane-align-left {
+    float: right;
+}
+
+@media only screen and (min-width : 320px) and (max-width : 480px) {
+    .classy-panel-styles.pane-hide-phone {
+        display: none;
+    }
+    .classy-panel-styles.pane-hide-phone-xl {
+        display: none;
+    }
+    .classy-panel-styles.pane-hide-tablet {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 414px) and (max-width: 736px) {
+    .classy-panel-styles.pane-hide-phone-xl {
+        display: none;
+    }
+    .classy-panel-styles.pane-hide-tablet {
+        display: none;
+    }
+}
+
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+    .classy-panel-styles.pane-hide-tablet {
+        display: none;
+    }
+}

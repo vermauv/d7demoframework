@@ -1,0 +1,23 @@
+name = DFS MED Menu
+description = Main menu links
+core = 7.x
+package = DFS Submodules
+
+dependencies[] = df_tools_menu
+dependencies[] = features
+
+features[features_api][] = api:2
+features[menu_custom][] = main-menu
+features[menu_links][] = main-menu_collections:search/node/collections
+features[menu_links][] = main-menu_articles:articles
+features[menu_links][] = main-menu_holiday:search/node/holiday
+features[menu_links][] = main-menu_more:search/node/more
+features[menu_links][] = main-menu_our-shows:our-shows
+features[menu_links][] = main-menu_sale:search/node/sale
+
+; Information added by Drupal.org packaging script on 2016-02-29
+version = "7.x-1.17"
+core = "7.x"
+project = "df"
+datestamp = "1456776652"
+

@@ -1,0 +1,20 @@
+<?php
+/**
+ * @file
+ * Functional code for DFS MED Menu module.
+ */
+
+/**
+ * Implements hook_entity_insert().
+ */
+function dfs_med_menu_entity_insert($entity, $type) {
+  // Brand nodes imported to the site require menu links.
+  if ($type == 'node' && $entity->type == 'brand' && $entity->is_new == TRUE) {
+    // Only add menu links for Superbrands.
+    $superbrand = $entity->field_superbrand[LANGUAGE_NONE][0]['value'];
+    if ($superbrand != 1) {
+      return;
+    }
+    df_tools_menu_child_add_node('our-shows', $entity);
+  }
+}

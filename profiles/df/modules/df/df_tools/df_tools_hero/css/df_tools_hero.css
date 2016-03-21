@@ -1,0 +1,75 @@
+.hero {
+    position: relative;
+}
+
+.hero .field-name-field-hero-image img,video {
+    width: 100%;
+}
+
+.hero .field-name-field-hero-button-link {
+    margin-top: 10px;
+}
+
+.hero .fieldable-panels-pane {
+    position: relative;
+}
+
+.hero .hero-elements {
+    position: absolute;
+    z-index: 1;
+    top: 10%;
+    right: 5%;
+    text-align: right;
+}
+
+.classy-panel-styles.text-align-left .hero .hero-elements {
+    left: 5%;
+    right: inherit;
+    text-align: left;
+}
+
+.classy-panel-styles.text-align-center .hero .hero-elements {
+    width: 100%;
+    right: inherit;
+    text-align: center;
+}
+
+.classy-panel-styles.pane-image-gradient-white-rtl .field-name-field-hero-image:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(to left, rgba(243, 239, 233, 0.7) 40%, rgba(243, 239, 233, 0.4) 45%, rgba(243, 239, 233, 0.1) 50%, rgba(243, 239, 233, 0) 100%);
+}
+
+.classy-panel-styles.pane-image-gradient-white-ltr .field-name-field-hero-image:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(to right, rgba(243, 239, 233, 0.7) 40%, rgba(243, 239, 233, 0.4) 45%, rgba(243, 239, 233, 0.1) 50%, rgba(243, 239, 233, 0) 100%);
+}
+
+.classy-panel-styles.pane-image-gradient-black-rtl .field-name-field-hero-image:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(to left, rgba(15, 15, 15, 0.7) 40%, rgba(15, 15, 15, 0.4) 45%, rgba(15, 15, 15, 0.1) 50%, rgba(15, 15, 15, 0) 100%);
+}
+
+.classy-panel-styles.pane-image-gradient-black-ltr .field-name-field-hero-image:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(to right, rgba(15, 15, 15, 0.7) 40%, rgba(15, 15, 15, 0.4) 45%, rgba(15, 15, 15, 0.1) 50%, rgba(15, 15, 15, 0) 100%);
+}

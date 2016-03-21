@@ -1,0 +1,21 @@
+<?php
+/**
+ * @file
+ * Code for the DF Tools OG feature.
+ */
+
+include_once 'df_tools_og.features.inc';
+
+/**
+ * Implements hook_migrate_api().
+ */
+function df_tools_og_migrate_api() {
+  $api = array(
+    'api' => 2,
+    'migrations' => array(
+      'DemoFrameworkBaseGroups' => array('class_name' => 'DemoFrameworkBaseGroups', 'group_name' => 'df'),
+      'DemoFrameworkBaseNodesGroup' => array('class_name' => 'DemoFrameworkBaseNodesGroup', 'group_name' => 'df'),
+    ),
+  );
+  return $api;
+}

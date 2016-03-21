@@ -1,0 +1,30 @@
+#Sass
+.sass-cache
+
+#OSX
+.DS_Store
+
+# Ant
+build
+build.properties
+
+# Composer
+vendor
+composer.lock
+
+# Behat
+tests/bin
+behat.local.yml
+
+# Contrib
+modules/contrib/*
+themes/contrib/*
+
+# Libraries
+libraries/*
+
+# Vim
+*.swp
+
+# PHPStorm
+.idea

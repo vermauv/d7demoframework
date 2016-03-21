@@ -1,0 +1,79 @@
+<?php
+/**
+ * @file
+ * Code for the Media & Entertainment Demo feature.
+ */
+
+include_once 'dfs_med.features.inc';
+/**
+ * @file
+ * Code for the DFS MED module.
+ */
+
+/**
+ * Implements hook_behat_info().
+ */
+function dfs_med_behat_info() {
+  $info = array(
+    'paths' => array(
+      'features' => 'features',
+    ),
+  );
+  return $info;
+}
+
+/**
+ * Implements hook_migrate_api().
+ */
+function dfs_med_migrate_api() {
+  $import_path = drupal_get_path('module', 'dfs_med') . '/import/';
+  $api = array(
+    'api' => 2,
+    'groups' => array(
+      'dfs_med' => array(
+        'title' => t('DFS MED'),
+      ),
+    ),
+    'migrations' => array(
+      'DFSMEDPersonaTerms' => array('class_name' => 'DFSMEDPersonaTerms', 'group_name' => 'dfs_med'),
+      'DFSMEDBrandNodes' => array('class_name' => 'DFSMEDBrandNodes', 'group_name' => 'dfs_med'),
+      'DFSMEDCollectionNodes' => array('class_name' => 'DFSMEDCollectionNodes', 'group_name' => 'dfs_med'),
+      'DFSMEDCommerceNodes' => array('class_name' => 'DFSMEDCommerceNodes', 'group_name' => 'dfs_med'),
+      'DFSMEDImageFiles' => array('class_name' => 'DFSMEDImageFiles', 'group_name' => 'dfs_med'),
+      'DFSMEDEditorialNodes' => array('class_name' => 'DFSMEDEditorialNodes', 'group_name' => 'dfs_med'),
+      'DFSMEDEditorialComments' => array('class_name' => 'DFSMEDEditorialComments', 'group_name' => 'dfs_med'),
+      'DFSMEDEpisodeNodes' => array('class_name' => 'DFSMEDEpisodeNodes', 'group_name' => 'dfs_med'),
+      'DFSMEDEpisodeVideo' => array('class_name' => 'DFSMEDEpisodeVideo', 'group_name' => 'dfs_med'),
+      'DFSMEDProducts' => array('class_name' => 'DFSMEDProducts', 'group_name' => 'dfs_med'),
+      'DFSMEDSeriesNodes' => array('class_name' => 'DFSMEDSeriesNodes', 'group_name' => 'dfs_med'),
+      'DFSMEDSlideshowNodes' => array('class_name' => 'DFSMEDSlideshowNodes', 'group_name' => 'dfs_med'),
+      'DFSMEDUserPictures' =>  array('class_name' => 'DFUserPictures', 'path' => $import_path . 'dfs_med.users.csv', 'group_name' => 'dfs_med'),
+      'DFSMEDUsers' => array('class_name' => 'DFUsers', 'path' => $import_path . 'dfs_med.users.csv', 'picture_source' => 'DFSMEDUserPictures', 'group_name' => 'dfs_med'),
+    ),
+  );
+  return $api;
+}
+
+/**
+ * Implements hook_df_import_alter().
+ */
+function dfs_med_df_import_alter(&$migrations) {
+  return $migrations['dfs_med'] = array(
+    'DFSMEDPersonaTerms',
+    'DemoFrameworkSiteSectionTerms',
+    'DFSMEDUserPictures',
+    'DFSMEDUsers',
+    'DFSMEDProducts',
+    'DFSMEDBrandNodes',
+    'DFSMEDCommerceNodes',
+    'DFSMEDImageFiles',
+    'DFSMEDEditorialNodes',
+    'DFSMEDEditorialComments',
+    'DFSMEDEpisodeVideo',
+    'DFSMEDEpisodeNodes',
+    'DFSMEDCollectionNodes',
+    'DFSMEDSeriesNodes',
+    'DFSMEDSlideshowNodes',
+  );
+}
+

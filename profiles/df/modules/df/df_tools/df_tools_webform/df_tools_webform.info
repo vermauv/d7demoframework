@@ -1,0 +1,26 @@
+name = DF Tools Webform
+description = A reusable FPP widget for adding a Webform to a panel.
+core = 7.x
+package = Demo Framework Tools
+
+dependencies[] = ctools
+dependencies[] = entityreference
+dependencies[] = features
+dependencies[] = fieldable_panels_panes
+dependencies[] = form_builder
+dependencies[] = form_builder_webform
+dependencies[] = lightning_fpp
+dependencies[] = options
+dependencies[] = webform
+
+features[ctools][] = fieldable_panels_panes:fieldable_panels_pane_type:1
+features[features_api][] = api:2
+features[field_base][] = field_inline_webform
+features[field_instance][] = fieldable_panels_pane-web_form-field_inline_webform
+
+; Information added by Drupal.org packaging script on 2016-02-29
+version = "7.x-1.17"
+core = "7.x"
+project = "df"
+datestamp = "1456776652"
+

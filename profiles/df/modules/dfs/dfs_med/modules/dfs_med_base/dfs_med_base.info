@@ -1,0 +1,35 @@
+name = DFS MED Base
+description = Base components shared by associated Features.
+core = 7.x
+package = DFS Submodules
+
+dependencies[] = ctools
+dependencies[] = entityreference
+dependencies[] = features
+dependencies[] = focal_point
+dependencies[] = image
+dependencies[] = lightning_letterbox
+dependencies[] = link
+dependencies[] = text
+dependencies[] = views
+
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[field_base][] = field_brand
+features[field_base][] = field_collected
+features[field_base][] = field_link
+features[field_base][] = field_main_image
+features[field_base][] = field_subtext
+features[field_base][] = field_year
+features[image][] = article-callout
+features[image][] = collection-hero
+features[image][] = episode-control
+features[image][] = episode-image
+features[image][] = product-thumb
+
+; Information added by Drupal.org packaging script on 2016-02-29
+version = "7.x-1.17"
+core = "7.x"
+project = "df"
+datestamp = "1456776652"
+

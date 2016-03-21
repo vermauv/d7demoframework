@@ -1,0 +1,13 @@
+<?php
+/**
+ * @file
+ * Contains install routines for DFS MED Search.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function dfs_med_search_install() {
+  // Increase the default search cron limit
+  variable_set('search_cron_limit', 300);
+}

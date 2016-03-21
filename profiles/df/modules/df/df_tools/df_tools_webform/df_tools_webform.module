@@ -1,0 +1,20 @@
+<?php
+/**
+ * @file
+ * df_tools_webform.module
+ */
+
+include_once 'df_tools_webform.features.inc';
+
+/**
+ * Implements hook_lightning_fpp_types_alter().
+ */
+function df_tools_webform_lightning_fpp_types_alter(&$types) {
+  $icon_path = drupal_get_path('module', 'df_tools_webform') . '/images/';
+  $types['web_form'] = array(
+    'title' => 'Webform',
+    'icon' => $icon_path . 'icon_form.png',
+    'path' => 'web-form',
+  );
+}
+

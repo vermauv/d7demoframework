@@ -1,0 +1,58 @@
+name = DF Translate
+description = Internationalization, Content Translation, Multilingual, Locale
+core = 7.x
+package = Demo Framework
+
+dependencies[] = ctools
+dependencies[] = import
+dependencies[] = features
+dependencies[] = i18n
+dependencies[] = i18n_block
+dependencies[] = i18n_menu
+dependencies[] = i18n_node
+dependencies[] = i18n_redirect
+dependencies[] = i18n_string
+dependencies[] = i18n_sync
+dependencies[] = i18n_taxonomy
+dependencies[] = i18n_translation
+dependencies[] = i18nviews
+dependencies[] = locale
+dependencies[] = language_switch
+dependencies[] = migrate
+dependencies[] = migrate_extras
+dependencies[] = migrate_ui
+dependencies[] = node
+dependencies[] = role_export
+dependencies[] = strongarm
+dependencies[] = text
+dependencies[] = translation
+dependencies[] = translation_helpers
+
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:2
+features[language][] = de
+features[language][] = en
+features[language][] = es
+features[user_role][] = translator
+features[variable][] = i18n_hide_translation_links
+features[variable][] = i18n_node_default_language_none
+features[variable][] = i18n_sync_node_type_page
+features[variable][] = language_content_type_page
+features[variable][] = language_count
+features[variable][] = language_default
+features[variable][] = language_negotiation_language
+features[variable][] = language_negotiation_language_content
+features[variable][] = language_negotiation_language_url
+features[variable][] = language_types
+features[variable][] = locale_language_providers_weight_language
+features[variable][] = site_default_country
+features[variable][] = translation_language_type
+
+files[] = df_translate.base.nodes.translations.inc
+
+; Information added by Drupal.org packaging script on 2016-02-29
+version = "7.x-1.17"
+core = "7.x"
+project = "df"
+datestamp = "1456776652"
+

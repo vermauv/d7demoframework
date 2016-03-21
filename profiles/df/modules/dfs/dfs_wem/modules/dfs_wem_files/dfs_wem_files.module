@@ -1,0 +1,8 @@
+<?php
+/**
+ * @file
+ * Code for the DFS WEM Files feature.
+ */
+
+include_once 'dfs_wem_files.features.inc';
+

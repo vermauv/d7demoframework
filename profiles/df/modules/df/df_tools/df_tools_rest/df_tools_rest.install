@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Installation routines for df_tools_rest.module
+ */
+
+/**
+ * Set the user name regex to accept all for backwards compatibility.
+ */
+function df_tools_rest_install() {
+  // Set the user name regex to accept all.
+  variable_set('restws_basic_auth_user_regex', '/.*/');
+}

@@ -1,0 +1,54 @@
+name = Demo Framework
+description = Architects Start Here. (Powered By Lightning)
+core = 7.x
+distribution_name = Demo Framework
+exclusive = 1
+
+; Drupal Core
+dependencies[] = block
+dependencies[] = comment
+dependencies[] = contextual
+dependencies[] = dblog
+dependencies[] = field
+dependencies[] = field_ui
+dependencies[] = file
+dependencies[] = help
+dependencies[] = image
+dependencies[] = list
+dependencies[] = menu
+dependencies[] = number
+dependencies[] = options
+dependencies[] = path
+dependencies[] = rdf
+dependencies[] = search
+dependencies[] = shortcut
+dependencies[] = update
+
+; Lightning (core)
+dependencies[] = assemble
+dependencies[] = curate
+dependencies[] = import
+
+; Demo Framework (required)
+dependencies[] = df_admin
+dependencies[] = df_commerce
+dependencies[] = df_engage
+
+; Demo Framework Tools
+dependencies[] = df_tools_color
+dependencies[] = df_tools_hero
+dependencies[] = df_tools_moderation
+dependencies[] = df_tools_rest
+dependencies[] = df_tools_services
+dependencies[] = df_tools_vertical_tabs
+
+; System Requirements
+php = 5.4
+php_memory_limit = 128M
+
+; Information added by Drupal.org packaging script on 2016-02-29
+version = "7.x-1.17"
+core = "7.x"
+project = "df"
+datestamp = "1456776652"
+

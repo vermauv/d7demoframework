@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * @file
+ * Installation routines for DF Admin
+ */
+
+/**
+ * Implements hook_install().
+ */
+function df_admin_install() {
+  // Set DF Admin as the default homepage on install.
+  variable_set('site_frontpage', 'admin/df');
+
+  // Set jQuery version to 1.10
+  variable_set('jquery_update_jquery_version', '1.10');
+
+  // Set admin jQuery version to 1.7
+  variable_set('jquery_update_jquery_admin_version', '1.7');
+
+  // Set other jQuery options
+  variable_set('jquery_update_compression_type', 'min');
+  variable_set('jquery_update_jquery_cdn', 'none');
+
+  // Turn on Javascript aggregation by default.
+  variable_set('preprocess_js', TRUE);
+
+  // Turn on CSS aggregation by default.
+  variable_set('preprocess_css', TRUE);
+
+  // Set a base value for the currently installed scenario
+  variable_set('df_admin_installed_scenario', FALSE);
+
+  // Re-enable standard checkboxes on Modules page.
+  variable_set('module_filter_use_switch', FALSE);
+}

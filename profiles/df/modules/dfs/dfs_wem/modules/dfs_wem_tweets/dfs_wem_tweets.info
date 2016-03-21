@@ -1,0 +1,53 @@
+name = DFS WEM Tweets
+description = Tweet content type and config for DFS WEM
+core = 7.x
+package = DFS Submodules
+
+dependencies[] = assemble
+dependencies[] = dfs_wem
+dependencies[] = features
+dependencies[] = lightning_base
+dependencies[] = lightning_roles
+dependencies[] = node
+dependencies[] = panelizer
+dependencies[] = strongarm
+dependencies[] = text
+
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:2
+features[field_base][] = field_wem_tweet_from
+features[field_base][] = field_wem_tweet_id
+features[field_instance][] = node-wem_tweet-body
+features[field_instance][] = node-wem_tweet-field_wem_tweet_from
+features[field_instance][] = node-wem_tweet-field_wem_tweet_id
+features[node][] = wem_tweet
+features[variable][] = additional_settings__active_tab_wem_tweet
+features[variable][] = comment_anonymous_wem_tweet
+features[variable][] = comment_default_mode_wem_tweet
+features[variable][] = comment_default_per_page_wem_tweet
+features[variable][] = comment_form_location_wem_tweet
+features[variable][] = comment_preview_wem_tweet
+features[variable][] = comment_subject_field_wem_tweet
+features[variable][] = comment_wem_tweet
+features[variable][] = field_bundle_settings_node__wem_tweet
+features[variable][] = i18n_node_extended_wem_tweet
+features[variable][] = i18n_node_options_wem_tweet
+features[variable][] = i18n_sync_node_type_wem_tweet
+features[variable][] = language_content_type_wem_tweet
+features[variable][] = menu_options_wem_tweet
+features[variable][] = menu_parent_wem_tweet
+features[variable][] = node_options_wem_tweet
+features[variable][] = node_preview_wem_tweet
+features[variable][] = node_submitted_wem_tweet
+features[variable][] = webform_node_wem_tweet
+features[variable][] = workbench_moderation_default_state_wem_tweet
+
+features_exclude[dependencies][ctools] = ctools
+features_exclude[field_base][body] = body
+
+; Information added by Drupal.org packaging script on 2016-02-29
+version = "7.x-1.17"
+core = "7.x"
+project = "df"
+datestamp = "1456776652"
+

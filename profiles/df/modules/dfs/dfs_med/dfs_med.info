@@ -1,0 +1,47 @@
+name = Media & Entertainment Demo
+description = Media vertical specific scenario focused on brands, series and episodes.
+core = 7.x
+package = Demo Framework Scenarios
+
+dependencies[] = ctools
+dependencies[] = df_admin
+dependencies[] = df_commerce
+dependencies[] = df_engage
+dependencies[] = df_search
+dependencies[] = df_tools_color
+dependencies[] = df_tools_sharethis
+dependencies[] = df_tools_user
+dependencies[] = dfs_med_base
+dependencies[] = dfs_med_brand
+dependencies[] = dfs_med_commerce
+dependencies[] = dfs_med_article
+dependencies[] = dfs_med_episodes
+dependencies[] = dfs_med_menu
+dependencies[] = dfs_med_search
+dependencies[] = dfs_med_series
+dependencies[] = dfs_med_slideshow
+dependencies[] = dfs_med_theme
+dependencies[] = features
+
+features[ctools][] = page_manager:pages_default:1
+features[features_api][] = api:2
+features[page_manager_pages][] = dfs_med_home
+
+features_exclude[dependencies][page_manager] = page_manager
+
+files[] = dfs_med.files.image.inc
+files[] = dfs_med.nodes.brand.inc
+files[] = dfs_med.nodes.collection.inc
+files[] = dfs_med.nodes.commerce.inc
+files[] = dfs_med.nodes.article.inc
+files[] = dfs_med.nodes.episode.inc
+files[] = dfs_med.nodes.series.inc
+files[] = dfs_med.nodes.slideshow.inc
+files[] = dfs_med.terms.persona.inc
+
+; Information added by Drupal.org packaging script on 2016-02-29
+version = "7.x-1.17"
+core = "7.x"
+project = "df"
+datestamp = "1456776652"
+

@@ -1,0 +1,45 @@
+name = DF Tools OG
+description = Contains migrations for creating Organic Groups
+core = 7.x
+package = Demo Framework Tools
+
+dependencies[] = ctools
+dependencies[] = features
+dependencies[] = field_group
+dependencies[] = lightning_base
+dependencies[] = list
+dependencies[] = og
+dependencies[] = og_ui
+dependencies[] = options
+dependencies[] = strongarm
+dependencies[] = text
+
+features[ctools][] = field_group:field_group:1
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:2
+features[field_base][] = group_group
+features[field_instance][] = node-organic_group-body
+features[field_instance][] = node-organic_group-group_group
+features[node][] = organic_group
+features[variable][] = comment_default_mode_organic_group
+features[variable][] = comment_default_per_page_organic_group
+features[variable][] = comment_form_location_organic_group
+features[variable][] = comment_organic_group
+features[variable][] = comment_preview_organic_group
+features[variable][] = comment_subject_field_organic_group
+features[variable][] = language_content_type_organic_group
+features[variable][] = menu_options_organic_group
+features[variable][] = menu_parent_organic_group
+features[variable][] = node_options_organic_group
+features[variable][] = node_preview_organic_group
+features[variable][] = node_submitted_organic_group
+
+files[] = df_tools_og.base.groups.inc
+files[] = df_tools_og.base.nodes.group.inc
+
+; Information added by Drupal.org packaging script on 2016-02-29
+version = "7.x-1.17"
+core = "7.x"
+project = "df"
+datestamp = "1456776652"
+

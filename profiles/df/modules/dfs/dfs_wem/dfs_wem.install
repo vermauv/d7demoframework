@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * Installation routines for DFS_WEM feature
+ */
+
+/**
+ * Implements hook_install().
+ */
+function dfs_wem_install() {
+  // Enable custom theme on install.
+  theme_enable(array('demonstratie_lce'));
+  variable_set('theme_default', 'demonstratie_lce');
+
+  // Set DFS WEM Home as the default homepage on install.
+  variable_set('site_frontpage', 'dfs-wem-home');
+
+  // Do not attach any sample orders for users.
+  variable_set('df_commerce_add_sample_orders', FALSE);
+
+  // Set default ShareThis node types.
+  $sharethis_node_types = array(
+    'article' => 'article',
+    'page' => 'page',
+    'wem_news' => 'wem_news',
+    'wem_product_review' => 'wem_product_review',
+    'commerce' => 0,
+    'landing' => 0,
+    'organic_group' => 0,
+    'wem_commerce' => 0,
+    'wem_contest' => 0,
+    'wem_tweet' => 0,
+    'webform' => 0,
+  );
+  variable_set('sharethis_node_types', $sharethis_node_types);
+
+}

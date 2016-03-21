@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the DFS MED Series feature.
+ */
+
+include_once 'dfs_med_series.features.inc';

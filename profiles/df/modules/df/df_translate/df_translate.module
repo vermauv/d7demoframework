@@ -1,0 +1,21 @@
+<?php
+/**
+ * @file
+ * Code for the DF Translator feature.
+ */
+
+include_once 'df_translate.features.inc';
+
+/**
+ * Implements hook_migrate_api().
+ */
+function df_translate_migrate_api() {
+  $api = array(
+    'api' => 2,
+    'migrations' => array(
+      'DemoFrameworkBaseNodesTranslations' => array('class_name' => 'DemoFrameworkBaseNodesTranslations', 'group_name' => 'df'),
+    ),
+  );
+  return $api;
+}
+

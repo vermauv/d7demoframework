@@ -1,0 +1,32 @@
+<?php
+/**
+ * @file
+ * Code for the Commerce Product feature.
+ */
+
+include_once 'df_tools_commerce_product.features.inc';
+
+/**
+ * Implements hook_lightning_fpp_types_alter().
+ */
+function df_tools_commerce_product_lightning_fpp_types_alter(&$types) {
+  $icon_path = drupal_get_path('module', 'df_tools_commerce') . '/images/';
+  $types['commerce_product'] = array(
+    'title' => 'Commerce Product',
+    'icon' => $icon_path . 'icon_form.png',
+    'path' => 'commerce-product',
+  );
+}
+
+/**
+ * Implements hook_migrate_api().
+ */
+function df_tools_commerce_product_migrate_api() {
+  $api = array(
+    'api' => 2,
+    'migrations' => array(
+      'DFToolsCommerceProductFPP' => array('class_name' => 'DFToolsCommerceProductFPP'),
+    ),
+  );
+  return $api;
+}

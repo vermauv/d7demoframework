@@ -1,0 +1,63 @@
+<?php
+/**
+ * @file
+ * Code for the DF Tools Hero feature.
+ */
+
+include_once 'df_tools_hero.features.inc';
+
+/**
+ * Implements hook_migrate_api
+ */
+function df_tools_hero_migrate_api() {
+  $api = array(
+    'api' => 2,
+    'migrations' => array(
+      'DFHeroFPP' => array('class_name' => 'DFHeroFPP', 'group_name' => 'df'),
+    ),
+  );
+  return $api;
+}
+
+/**
+ * Implements hook_lightning_fpp_types().
+ */
+function df_tools_hero_lightning_fpp_types_alter(&$types) {
+  $icon_path = drupal_get_path('module', 'df_tools_hero') . '/images/';
+  $types['hero'] = array(
+    'title' => 'hero',
+    'icon' => $icon_path . 'icon_hero.png',
+    'path' => 'hero',
+  );
+}
+
+/**
+ * Implements hook_preprocess_HOOK.
+ */
+function df_tools_hero_preprocess_fieldable_panels_pane(&$vars) {
+  if ($vars['elements']['#bundle'] == 'hero') {
+    // Wrap everything other than the hero image/title in a container
+    $container = array(
+      '#type' => 'container',
+      '#attributes' => array(
+        'class' => array('hero-elements')
+      )
+    );
+    foreach ($vars['content'] as $field_name => $field_value) {
+      if ($field_name == 'field_hero_image') {
+        if ($field_value[0]['#bundle'] == 'video') {
+          $vars['content'][$field_name][0]['file']['#controls'] = FALSE;
+          $vars['content'][$field_name][0]['file']['#loop'] = TRUE;
+          $vars['content'][$field_name][0]['file']['#muted'] = TRUE;
+          $vars['content'][$field_name][0]['file']['#autoplay'] = 'auto';
+        }
+      }
+      else if ($field_name != 'title') {
+        $container[$field_name] = $field_value;
+        unset($vars['content'][$field_name]);
+      }
+    }
+    $vars['content']['container'] = $container;
+    $vars['classes_array'][] = 'hero';
+  }
+}

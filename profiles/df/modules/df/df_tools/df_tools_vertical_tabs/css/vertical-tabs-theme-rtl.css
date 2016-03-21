@@ -1,0 +1,21 @@
+/**
+ * RTL theme styles 
+ */
+
+ /* push summary left */
+.vertical-tabs-panes a.fieldset-title {
+  margin-left: .5em; 
+  margin-right: 0;
+}
+/* positions collapse icon beside legend */
+html.js .vertical-tabs-panes fieldset.collapsed .fieldset-legend {
+  background-position: 100% 7px;
+}
+/* positions collapse icon beside legend */
+html.js .vertical-tabs-panes fieldset.collapsible .fieldset-legend {
+  background-position: 100% 7px;
+}
+html.js .vertical-tabs-panes .fieldset-legend span.summary {
+  margin-right: 0;
+  margin-left: 0;
+}

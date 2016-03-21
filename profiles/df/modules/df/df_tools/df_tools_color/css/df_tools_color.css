@@ -1,0 +1,188 @@
+/* Style our navbar icon */
+
+#navbar-administration.navbar-oriented .navbar-bar .navbar-tab.df-tools-color-icon-wrapper {
+  float: right;
+  position: relative;
+}
+
+#navbar-administration .navbar-tab .df-tools-color-icon {
+  position: relative;
+  padding-bottom: 1em;
+  padding-top: 1em;
+}
+
+.df-tools-color-icon:before {
+  background-image: url('../images/icon.png');
+  background-attachment: scroll;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  width: 30px;
+  height: 30px;
+  top: .6667em;
+  left: 0;
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: 1;
+}
+
+.df-tools-color-icon:hover:before {
+  background-image: url('../images/icon-hover.png');
+}
+
+/* Style the popup */
+
+.df-tools-color-popup {
+  position: fixed;
+  padding: 10px;
+  /* One above navbar */
+  z-index: 502;
+  top: 39px;
+  right: 0;
+  min-height: 400px;
+  width: 320px;
+  background-color: black;
+}
+
+.color-palette {
+  max-height: 200px;
+  overflow-y: scroll;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.current-color-palette.dropper-lock:after {
+  content: "Click anywhere to select a color";
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  text-align: center;
+  padding-top: 50px;
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: rgba(0,0,0,.8);
+}
+
+.current-color-palette.dropper-lock.error:after {
+  content: "Color not found";
+}
+
+/* Spectrum styles */
+
+.sp-container {
+  position: absolute;
+  border: 1px solid gray;
+  background: #f4f4f4;
+}
+
+.sp-picker-container {
+  border: none;
+}
+
+button.sp-choose,button.sp-choose:hover,.sp-cancel,.sp-cancel:hover {
+  background: none;
+  border: none;
+  margin: 0;
+  font-size: 12px;
+  text-shadow: none;
+  color: #717171 !important;
+  text-transform: capitalize;
+}
+
+button.sp-choose:hover,.sp-cancel:hover {
+  text-decoration: underline;
+}
+
+/* Make our palette a grid of squares */
+
+.sp-preview {
+  padding: 10px;
+  width: 50px;
+  height: 50px;
+  margin: 0;
+  border: none;
+}
+
+.sp-active .sp-preview {
+  border: 2px solid black;
+}
+
+/* Improve the popup style by making a better use of space */
+
+.sp-replacer {
+  padding: 0;
+  border: none;
+}
+
+/* Hide the dropdown arrow that would normally appear next to .sp-preview */
+
+.sp-dd {
+  display: none;
+}
+
+.df-tools-color-popup h4 {
+  color: #dadada;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 16px;
+}
+
+.df-tools-color-popup button {
+  color: #dadada;
+  background-color: #2e2e2e;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.df-tools-color-popup button:hover {
+  background-color: #121212;
+}
+
+.df-tools-color-reset {
+  margin-left: 10px;
+}
+
+.color-processing:after {
+  content: " ";
+  background-image: url('../images/progress.gif');
+  background-repeat: no-repeat;
+  background-position: center center;
+  display: block;
+  width: 100%;
+  height: 100px;
+  background-size: contain;
+}
+
+.external-swatch {
+  z-index: 502;
+  width: 50px;
+  height: 50px;
+  float: left;
+}
+
+input[type="text"].color-crawler-site {
+  width: 80%;
+  display: inline-block;
+}
+
+.color-crawler-submit {
+  width: 20%;
+  height: 2.3125rem;
+  padding: 0;
+}
+
+.df-tools-color-dropper {
+  width: 32px;
+  height: 32px;
+  float: right;
+  background-image: url('../images/drop.png');
+}
+
+.df-tools-color-dropper:hover {
+  background-image: url('../images/drop-hover.png');
+}

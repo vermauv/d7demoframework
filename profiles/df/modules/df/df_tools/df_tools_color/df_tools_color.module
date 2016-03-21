@@ -1,0 +1,188 @@
+<?php
+
+/**
+ * @file
+ *   Contains all backend code for df_tools_color.module
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function df_tools_color_menu() {
+  $items['df_tools_color/css'] = array(
+    'page callback' => 'df_tools_color_get_css',
+    'access arguments' => array('administer themes'),
+  );
+  $items['df_tools_color/css/save'] = array(
+    'page callback' => 'df_tools_color_save_css',
+    'access arguments' => array('administer themes'),
+  );
+  $items['df_tools_color/css/preview'] = array(
+    'page callback' => 'df_tools_color_preview_css',
+    'access arguments' => array('administer themes'),
+  );
+  $items['df_tools_color/css/reset'] = array(
+    'page callback' => 'df_tools_color_reset_css',
+    'access arguments' => array('administer themes'),
+  );
+  $items['df_tools_color/proxy'] = array(
+    'page callback' => 'df_tools_color_proxy',
+    'access arguments' => array('administer themes'),
+  );
+  return $items;
+}
+
+/**
+ * Menu callback to proxy a given URL to circumvent CORS.
+ */
+function df_tools_color_proxy() {
+  if (isset($_GET['url'])) {
+    $response = drupal_http_request($_GET['url']);
+    if (!empty($response->data)) {
+      drupal_json_output(array('contents' => $response->data));
+    }
+  }
+}
+
+/**
+ * Utility function to parse a structured colors array as CSS.
+ */
+function df_tools_color_process_colors($colors) {
+  // Generate our dynamic CSS file
+  $css = '';
+  foreach ($colors as $color) {
+    foreach ($color[1] as $rule) {
+      $new_css = $rule[0] . '{' . $rule[1] . ':' . $color[0] . '}';
+      // Add an extra wrapper for media queries
+      if (isset($rule[2])) {
+        $new_css = $rule[2] . '{' . $new_css . '}';
+      }
+      $css .= $new_css;
+    }
+  }
+  return $css;
+}
+
+/**
+ * Menu callback to temporarily compile colors into CSS and present it to the app.
+ */
+function df_tools_color_preview_css() {
+  if (isset($_POST['colors']) && $colors = json_decode($_POST['colors'])) {
+    $css = df_tools_color_process_colors($colors);
+
+    drupal_json_output($css);
+  }
+}
+
+/**
+ * Menu callback to compile colors and save them into a CSS file.
+ */
+function df_tools_color_save_css() {
+  if (isset($_POST['colors']) && $colors = json_decode($_POST['colors'])) {
+    $css = df_tools_color_process_colors($colors);
+    // Output as a CSS file
+    file_unmanaged_save_data($css, 'public://df_tools_color_overrides.css', FILE_EXISTS_REPLACE);
+
+    // Clear CSS cache
+    drupal_clear_css_cache();
+  }
+}
+
+/**
+ * Menu callback to delete the current CSS file.
+ */
+function df_tools_color_reset_css() {
+  file_unmanaged_delete('public://df_tools_color_overrides.css');
+}
+
+/**
+ * Menu callback to compile all stylesheets in current theme into a string.
+ */
+function df_tools_color_get_css() {
+  $files = array();
+  // Use our override if it exists
+  if (file_exists('public://df_tools_color_overrides.css')) {
+    $files[] = 'public://df_tools_color_overrides.css';
+  }
+  // Otherwise grab all the stylesheets from the frontend theme
+  else {
+    $theme = variable_get('theme_default');
+    $path = drupal_get_path('theme', $theme);
+    $info = drupal_parse_info_file("$path/$theme.info");
+    if (!empty($info['stylesheets'])) {
+      foreach ($info['stylesheets'] as $group) {
+        foreach ($group as $file) {
+          if (strpos($file, 'normalize') === FALSE) {
+            $files[] = "$path/$file";
+          }
+        }
+      }
+    }
+  }
+  // Compile CSS based on those stylesheets
+  $css = '';
+  foreach ($files as $file) {
+    if (file_exists($file)) {
+      $css .= file_get_contents($file);
+    }
+  }
+
+  drupal_json_output($css);
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function df_tools_color_preprocess_page(&$variables) {
+  global $theme;
+  // Add our custom css file, if it exists and we're viewing the frontend theme.
+  if ($theme == variable_get('theme_default') && file_exists('public://df_tools_color_overrides.css')) {
+    // By using the CSS_THEME group, we place our CSS file after the scenario's
+    drupal_add_css('public://df_tools_color_overrides.css', array('group' => CSS_THEME));
+  }
+}
+
+/**
+ * Implements hook_navbar().
+ */
+function df_tools_color_navbar() {
+  global $theme;
+  $items = array();
+  if ($theme == variable_get('theme_default')) {
+    $path = drupal_get_path('module', 'df_tools_color');
+    $items['df_tools_color'] = array(
+      '#type' => 'navbar_item',
+      'tab' => array(
+        'trigger' => array(
+          '#theme' => 'html_tag',
+          '#tag' => 'button',
+          '#value' => t('Colours'),
+          '#value_prefix' => '<span class="element-invisible">',
+          '#value_suffix' => '</span>',
+          '#attributes' => array(
+            'title' => t('Change Colours'),
+            'class' => array('df-tools-color-icon'),
+          ),
+        ),
+      ),
+      '#wrapper_attributes' => array(
+        'class' => array('df-tools-color-icon-wrapper'),
+      ),
+      '#attached' => array(
+        'js' => array(
+          libraries_get_path('css.js') . '/css.js',
+          libraries_get_path('spectrum') . '/spectrum.js',
+          libraries_get_path('html2canvas') . '/dist/html2canvas.min.js',
+          libraries_get_path('color-thief') . '/src/color-thief.js',
+          $path . '/js/df_tools_color.js'
+        ),
+        'css' => array(
+          libraries_get_path('spectrum') . '/spectrum.css',
+          $path . '/css/df_tools_color.css'
+        ),
+      ),
+      '#weight' => 200,
+    );
+  }
+  return $items;
+}

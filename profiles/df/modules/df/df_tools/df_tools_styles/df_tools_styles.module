@@ -1,0 +1,21 @@
+<?php
+/**
+ * @file
+ * Module file for DF Tools Styles.
+ */
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function df_tools_styles_ctools_plugin_api($owner, $api) {
+  if ($owner == 'classy_panel_styles' && $api == 'classy_panel_styles') {
+    return array('version' => 1);
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function df_tools_styles_form_panels_edit_style_type_form_alter(&$form, &$form_state, $form_id) {
+  $form['style']['#options']['classy_panel_styles:cps_default'] = variable_get('site_name', 'DF Tools') . ' Styles';
+}

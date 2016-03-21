@@ -1,0 +1,43 @@
+name = DFS MED Editorial
+description = Editorial node bundle and associated components.
+core = 7.x
+package = DFS Submodules
+
+dependencies[] = ctools
+dependencies[] = date
+dependencies[] = df_engage
+dependencies[] = df_tools_article
+dependencies[] = dfs_med_base
+dependencies[] = dfs_med_brand
+dependencies[] = dfs_med_episodes
+dependencies[] = draggableviews
+dependencies[] = entityreference
+dependencies[] = features
+dependencies[] = i18n_taxonomy
+dependencies[] = image
+dependencies[] = lightning_base
+dependencies[] = link
+dependencies[] = media
+dependencies[] = options
+dependencies[] = strongarm
+dependencies[] = text
+dependencies[] = views
+dependencies[] = views_content
+
+features[ctools][] = strongarm:strongarm:1
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[views_view][] = article_callout
+features[views_view][] = article_discussions
+features[views_view][] = article_headline
+features[views_view][] = articles
+features[views_view][] = more_articles
+
+features_exclude[field_base][field_brand] = field_brand
+
+; Information added by Drupal.org packaging script on 2016-02-29
+version = "7.x-1.17"
+core = "7.x"
+project = "df"
+datestamp = "1456776652"
+

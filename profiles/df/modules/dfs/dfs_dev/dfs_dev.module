@@ -1,0 +1,47 @@
+<?php
+/**
+ * @file
+ * Code for the Development Demo feature.
+ */
+
+include_once 'dfs_dev.features.inc';
+
+/**
+ * Implements hook_migrate_api().
+ */
+function dfs_dev_migrate_api() {
+  $api = array(
+    'api' => 2,
+    'groups' => array(
+      'dfs_dev' => array(
+        'title' => t('DFS Dev'),
+      ),
+    ),
+    'migrations' => array(
+      'DFSDevRawHTMLFPP' => array('class_name' => 'DFRawHTMLFPP', 'group_name' => 'dfs_dev'),
+      'DFSDevTextFPP' => array('class_name' => 'DFTextFPP', 'group_name' => 'dfs_dev'),
+      'DFSDevHeroFPP' => array('class_name' => 'DFHeroFPP', 'group_name' => 'dfs_dev'),
+      'DFSDevLandingNodes' => array('class_name' => 'DFLandingNodes', 'group_name' => 'dfs_dev'),
+      'DFSDevUsers' => array('class_name' => 'DFUsers', 'group_name' => 'dfs_dev'),
+      'DFSDevLightningModerationNodes' => array('class_name' => 'LightningModerationNodes', 'group_name' => 'dfs_dev'),
+      'DFSDevSlideshowFPP' => array('class_name' => 'DFSlideshowFPP', 'group_name' => 'dfs_dev'),
+    ),
+  );
+  return $api;
+}
+
+/**
+ * Implements hook_df_import_alter().
+ */
+function dfs_dev_df_import_alter(&$migrations) {
+  return $migrations['dfs_dev'] = array(
+    'DemoFrameworkSiteSectionTerms',
+    'DFSDevRawHTMLFPP',
+    'DFSDevTextFPP',
+    'DFSDevHeroFPP',
+    'DFSDevLandingNodes',
+    'DFSDevUsers',
+    'DFSDevLightningModerationNodes',
+    'DFSDevSlideshowFPP'
+  );
+}

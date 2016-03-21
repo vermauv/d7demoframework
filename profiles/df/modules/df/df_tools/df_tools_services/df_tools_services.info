@@ -1,0 +1,22 @@
+name = DF Tools Services
+description = RESTful views providing nodes as a service.
+core = 7.x
+package = Demo Framework Tools
+
+dependencies[] = scheduler
+dependencies[] = views
+dependencies[] = views_json
+dependencies[] = views_ui
+
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[views_view][] = restful_content
+
+features_exclude[dependencies][ctools] = ctools
+
+; Information added by Drupal.org packaging script on 2016-02-29
+version = "7.x-1.17"
+core = "7.x"
+project = "df"
+datestamp = "1456776652"
+

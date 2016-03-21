@@ -1,0 +1,8 @@
+<?php
+/**
+ * @file
+ * Code for the DF Connect feature.
+ */
+
+include_once 'df_tools_sharethis.features.inc';
+

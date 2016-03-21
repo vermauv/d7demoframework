@@ -1,0 +1,25 @@
+<?php
+/**
+ * @file
+ * Code for the DFS WEM Commerce feature.
+ */
+
+include_once 'dfs_wem_commerce.features.inc';
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function dfs_wem_commerce_form_wem_product_review_node_form_alter(&$form, &$form_state, $form_id) {
+  $form['body'][LANGUAGE_NONE][0]['#format'] = 'userbase';
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function dfs_wem_commerce_preprocess_page(&$vars) {
+  $content = &$vars['page']['content']['system_main'];
+  if (isset($content['#node_edit_form']) && $content['#bundle'] == 'wem_product_review') {
+    drupal_set_title('Write your own review!');
+  }
+}
+

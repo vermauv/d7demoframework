@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Installation routines for dfs_dev feature
+ */
+
+/**
+ * Implements hook_install().
+ */
+function dfs_dev_install() {
+  // Set DFS Dev Home as the default homepage on install.
+  variable_set('site_frontpage', 'dfs-dev-home');
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function dfs_dev_uninstall() {
+
+}

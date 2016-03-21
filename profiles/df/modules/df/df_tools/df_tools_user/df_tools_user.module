@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ *   Contains an example Migration for Users
+ */
+
+/**
+ * Implements hook_migrate_api
+ */
+function df_tools_user_migrate_api() {
+  $api = array(
+    'api' => 2,
+    'migrations' => array(
+      'DFUserPictures' => array('class_name' => 'DFUserPictures', 'group_name' => 'df'),
+      'DFUsers' => array('class_name' => 'DFUsers', 'group_name' => 'df'),
+    ),
+  );
+  return $api;
+}

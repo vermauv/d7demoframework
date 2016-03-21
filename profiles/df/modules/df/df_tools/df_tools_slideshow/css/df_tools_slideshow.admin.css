@@ -1,0 +1,22 @@
+/**
+ * @file
+ * Provides admin tweaks for df_tools_slideshow
+ */
+
+#modal-content .df-tools-slideshow-admin .field-multiple-table {
+    width: 100%;
+}
+
+#modal-content .df-tools-slideshow-admin .field-type-text-long .form-type-select {
+    float: none;
+    display: inline-block;
+}
+
+#modal-content .df-tools-slideshow-admin td select {
+    min-width: 50px;
+    padding: 5px;
+}
+
+#modal-content .pane-bundle-slideshow {
+    max-width: 1200px;
+}

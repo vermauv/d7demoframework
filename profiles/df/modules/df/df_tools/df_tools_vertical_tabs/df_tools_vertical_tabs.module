@@ -1,0 +1,109 @@
+<?php
+
+/**
+ * @file
+ * Responsive version of vertical tabs.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function df_tools_vertical_tabs_menu() {
+  $items['admin/config/user-interface/responsive-vertical-tabs'] = array(
+    'title' => 'Responsive Vertical Tabs',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('df_tools_vertical_tabs_admin_form'),
+    'access arguments' => array('administer site configuration'),
+    'description' => 'Allows administrators to configure responsive vertical tabs.',
+    'file' => 'df_tools_vertical_tabs.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_library_alter().
+ */
+function df_tools_vertical_tabs_library_alter(&$libraries, $module) {
+  // Replace core vertical tab assets.
+  if ($module == 'system' && isset($libraries['drupal.vertical-tabs'])) {
+    // Replace vertical tab JS.
+    $path = 'misc/vertical-tabs.js';
+    unset($libraries['drupal.vertical-tabs']['js'][$path]);
+
+    $libraries['drupal.vertical-tabs']['js'][drupal_get_path('module', 'df_tools_vertical_tabs') . '/js/df-tools-vertical-tabs.js'] = array();
+
+    // Replace vertical tab CSS.
+    $path = 'misc/vertical-tabs.css';
+    unset($libraries['drupal.vertical-tabs']['css'][$path]);
+
+    $libraries['drupal.vertical-tabs']['css'][drupal_get_path('module', 'df_tools_vertical_tabs') . '/css/vertical-tabs.css'] = array();
+    $libraries['drupal.vertical-tabs']['css'][drupal_get_path('module', 'df_tools_vertical_tabs') . '/css/vertical-tabs-theme.css'] = array();
+
+    // Add CSS to display vertical tabs on the right unless the user has toggled
+    // the vertical tag setting.
+    if (variable_get('df_tools_vertical_tabs_vertical_tabs_toggle') != TRUE) {
+      $libraries['drupal.vertical-tabs']['css'][drupal_get_path('module', 'df_tools_vertical_tabs') . '/css/vertical-tabs-right.css'] = array();
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function df_tools_vertical_tabs_form_node_form_alter(&$form, &$form_state, $form_id) {
+  $button_1 = array();
+  $button_2 = array();
+
+  // Pre-render all actions and move them to dropbuttons.
+  foreach ($form['actions'] as $key => $action) {
+    if ($action['#type'] == 'submit') {
+      if ($key == 'preview' || $key == 'preview_changes') {
+        $button_2[$key] = array(
+          'title' => render($form['actions'][$key]),
+          'html' => TRUE
+        );
+      }
+      else {
+        $button_1[$key] = array(
+          'title' => render($form['actions'][$key]),
+          'html' => TRUE
+        );
+      }
+    }
+  }
+
+  // Hide the Workbench moderation dropdown.
+  if (isset($form['options'])) {
+    foreach (element_get_visible_children($form['options']) as $key) {
+      if (isset($form['options'][$key]['#title']) && $form['options'][$key]['#title'] == 'Moderation state') {
+        $form['options'][$key]['#access'] = FALSE;
+      }
+    }
+  }
+
+  // Close all vertical tabs by default.
+  foreach (element_get_visible_children($form) as $key) {
+    if (isset($form[$key]['#type']) && $form[$key]['#type'] == 'fieldset') {
+      $form[$key]['#collapsed'] = TRUE;
+    }
+  }
+
+  // Delete should always be last.
+  if (isset($button_1['delete'])) {
+    $temp = $button_1['delete'];
+    unset($button_1['delete']);
+    $button_1['delete'] = $temp;
+  }
+
+  // Add our dropbuttons to the form.
+  $form['actions']['dropbutton'] = array(
+    '#theme' => 'links__ctools_dropbutton',
+    '#links' => $button_1
+  );
+  $form['actions']['dropbutton_2'] = array(
+    '#theme' => 'links__ctools_dropbutton',
+    '#links' => $button_2,
+    '#class' => array('alternate')
+  );
+}

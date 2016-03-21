@@ -1,0 +1,42 @@
+/**
+ * Override of misc/vertical-tabs-rtl.css.
+ */
+
+
+/* create the two column layout for 960+ */
+@media all and (min-width: 960px) and (max-width: 5000px) {
+  /* make all the form elements 65% on node and block forms 
+   * TODO: this needs to be re-done with js that adds the column on admin pages where vertical tabs exist */
+  form[class^='node-'] .fieldset,
+  form[class^='node-'] .form-wrapper,
+  form[class^='node-'] .form-item-title,
+  form[id^='block-'] fieldset,
+  form[id^='block-'] .form-wrapper,
+  form[id^='block-'] .form-item  {
+    float: right; 
+  }
+   /* make the tabs column for the vertical tabs */
+  form[class^='node-'] .vertical-tabs-panes,
+  form[id^='block-'] .vertical-tabs-panes {
+    right: 70%;
+    left: 0;
+    padding: 0;
+  }
+  /* re-positions vertical tabs title at the top of the tabs column for Block UI, account settings */
+  form[id^='block-'] #edit-visibility-title {
+  	right: 70%;
+  	left: 0;
+    padding:
+  }
+}
+
+
+
+
+
+
+
+
+
+
+

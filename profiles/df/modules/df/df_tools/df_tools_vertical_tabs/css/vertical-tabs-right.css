@@ -1,0 +1,83 @@
+/**
+ * Right column CSS
+
+/* create the two column layout for 960+ */
+@media all and (min-width: 960px) and (max-width: 5000px) { /* make the tabs column for the vertical tabs */
+  /* make all the form elements 65% on node and block forms 
+   * TODO: this needs to be re-done with js that adds the column on admin pages where vertical tabs exist */
+  form[class^='node-'] .fieldset,
+  form[class^='node-'] .form-wrapper,
+  form[class^='node-'] .form-item-title,
+  form[class^='node-'] .form-item-language,
+  form[id^='block-'] fieldset,
+  form[id^='block-'] .form-wrapper,
+  form[id^='block-'] .form-item {
+    width: 62%;
+    padding:0 10px;
+    float: left; /* left column */
+  }
+
+  
+  /* If there is a horizontal tab section present with the veritcal tab sidebar, make it fit properly */
+  .field-group-htabs-wrapper {
+      width:62%;
+  }
+
+  form[class^='node-'] .field-group-htabs-wrapper .fieldset,
+  form[class^='node-'] .field-group-htabs-wrapper .form-wrapper,
+  form[class^='node-'] .field-group-htabs-wrapper .form-item-title,
+  form[class^='node-'] .field-group-htabs-wrapper .form-item-language,
+  form[id^='block-'] .field-group-htabs-wrapper fieldset,
+  form[id^='block-'] .field-group-htabs-wrapper .form-wrapper,
+  form[id^='block-'] .field-group-htabs-wrapper .form-item {
+    width: 95%;
+  }
+
+
+
+  form[class^='node-'] .vertical-tabs-panes,
+  form[id^='block-'] .vertical-tabs-panes {
+    position: absolute;
+    right: 0; /* right column */
+    left: initial;
+    margin: 0;
+    margin-top:10px;
+    padding:10px;
+     overflow-y:scroll;
+        background:#fff;
+    border:1px solid #ccc;
+    padding:20px;
+  }
+  /* re-positions vertical tabs title at the top of the tabs column for Block UI, account settings */
+  form[id^='block-'] #edit-visibility-title {
+    position: absolute;
+    right: 0; /* right column */
+    left: initial;
+    top: 0;
+    margin-top:10px;
+  }
+  .text-format-wrapper > .description {
+    float: left; /* left column */
+  }
+  .text-format-wrapper .fieldset-wrapper .description {
+    float: left; /* left column */
+    width: 100%;
+  }
+  .form-actions {
+    width:100%!important;
+  }
+}
+
+.vertical-tabs-panes .fieldset-legend span.summary {
+  font-size:.7em;
+}
+
+/*override ember fieldsets to move the icon to the left so it doesnt get pushed to the second line */
+.vertical-tabs-panes fieldset.collapsible .fieldset-legend:after {
+  position: absolute;
+  left:0;
+}
+
+.vertical-tabs-panes .fieldset-title {
+  margin-left:1em;
+}

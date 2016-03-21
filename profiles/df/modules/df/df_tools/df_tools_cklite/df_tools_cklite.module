@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * @file
+ * Integrates the lite track changes plugin for CKEditor with Drupal.
+ */
+
+/**
+ * Implements hook_libraries_info().
+ */
+function df_tools_cklite_libraries_info() {
+  return array(
+    'lite' => array(
+      'name' => 'LITE',
+      'vendor url' => 'http://www.loopindex.com/portfolio-item/track-changes-plugin/',
+      'download url' => 'http://ckeditor.com/addon/lite',
+      'path' => 'src/lite',
+      'version' => '1.1.30',
+      'files' => array(
+        'js' => array(
+          'lite-includes.js',
+          'lite-interface.js',
+          'plugin.js',
+        ),
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_filter_default_formats_alter().
+ */
+function df_tools_cklite_filter_default_formats_alter(&$formats) {
+  if (!empty($formats['filtered_html'])) {
+    $editor_settings = unserialize($formats['filtered_html']['editor_settings']);
+
+    // Add a new group containing the Lite buttons to the first toolbar row.
+    $editor_settings['toolbar'][0][] = array(
+      'name' => 'Lite',
+      'items' => array(
+        0 => 'lite-toggletracking',
+        1 => 'lite-toggleshow',
+        2 => 'lite-acceptall',
+        3 => 'lite-rejectall',
+        4 => 'lite-acceptone',
+        5 => 'lite-rejectone',
+      ),
+    );
+
+    $formats['filtered_html']['editor_settings'] = serialize($editor_settings);
+  }
+}

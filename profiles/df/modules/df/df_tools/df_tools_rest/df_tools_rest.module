@@ -1,0 +1,53 @@
+<?php
+/**
+ * @file
+ * df_tools_rest.module
+ */
+
+/**
+ * Implements hook_init().
+ */
+function df_tools_rest_init() {
+  // Forcibly allow CORS for the purposes of the headless demo.
+  header('Access-Control-Allow-Origin: *');
+  header('Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS');
+  header('Access-Control-Allow-Headers: Authorization, Origin, Content-Type, X-CSRF-Token');
+  header('Access-Control-Allow-Credentials: true');
+  // Preflight hack, normally we would do a redirect in .htaccess but we don't
+  //  have control over that file via build scripts.
+  // If RestWS had a real way to deal with CORS/preflight, we would use that.
+  if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    echo "";die;
+  }
+}
+
+/**
+ * Implements hook_entity_property_info_alter().
+ *
+ * Adds a custom setter callback for the non-standard Scheduler properties.
+ */
+function df_tools_rest_entity_property_info_alter(&$info) {
+  $properties = &$info['node']['bundles']['article']['properties'];
+
+  $properties['publish_on'] = array(
+    'label' => t('Publish on'),
+    'type' => 'text',
+    'setter callback' => 'df_tools_rest_set_scheduler_information',
+  );
+
+  $properties['unpublish_on'] = array(
+    'label' => t('Unpublish on'),
+    'type' => 'text',
+    'setter callback' => 'df_tools_rest_set_scheduler_information',
+  );
+}
+
+/**
+ * Custom callback to set scheduler information is passed in via RestWS.
+ */
+function df_tools_rest_set_scheduler_information(&$data, $name, $value, $langcode, $type, $inf) {
+  $data->$name = $value;
+  $data->publish_on = isset($data->publish_on) ? $data->publish_on : 0;
+  $data->unpublish_on = isset($data->unpublish_on) ? $data->unpublish_on : 0;
+  scheduler_node_update($data);
+}

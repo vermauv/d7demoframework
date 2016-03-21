@@ -1,0 +1,14 @@
+7.x-1.2
+Lift modules updated to 2.x
+Acquia Connector inherited from Lightning
+
+7.x-1.1
+Fixed AJAX error creating new Lift campaigns
+Added some behat coverage for FIN
+Fix issues with the color picker widget for themes.
+Some Valen cleanup.
+Fixed permissions issue for editors.
+Added version strings to df.info
+
+7.x-1.0
+Initial stable version of DF. :O
